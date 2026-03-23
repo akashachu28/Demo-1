@@ -1,0 +1,171 @@
+import { useState } from "react";
+import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock } from "lucide-react";
+
+const contractors = [
+  { id: "1", name: "John Smith", license: "CA-12345", state: "California", status: "active", compliance: 98, expires: "Dec 15, 2026", phone: "(555) 123-4567" },
+  { id: "2", name: "Sarah Johnson", license: "TX-67890", state: "Texas", status: "active", compliance: 100, expires: "Jan 20, 2027", phone: "(555) 234-5678" },
+  { id: "3", name: "Mike Davis", license: "FL-45678", state: "Florida", status: "expiring", compliance: 95, expires: "Apr 10, 2026", phone: "(555) 345-6789" },
+  { id: "4", name: "Emily Brown", license: "NY-23456", state: "New York", status: "active", compliance: 97, expires: "Oct 5, 2026", phone: "(555) 456-7890" },
+  { id: "5", name: "David Wilson", license: "IL-78901", state: "Illinois", status: "pending", compliance: 85, expires: "May 15, 2026", phone: "(555) 567-8901" },
+  { id: "6", name: "Lisa Anderson", license: "WA-34567", state: "Washington", status: "active", compliance: 99, expires: "Nov 30, 2026", phone: "(555) 678-9012" },
+  { id: "7", name: "James Taylor", license: "AZ-89012", state: "Arizona", status: "suspended", compliance: 65, expires: "Mar 25, 2026", phone: "(555) 789-0123" },
+  { id: "8", name: "Jennifer Martinez", license: "CO-56789", state: "Colorado", status: "active", compliance: 96, expires: "Aug 18, 2026", phone: "(555) 890-1234" },
+];
+
+export function Contractors() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
+
+  const filteredContractors = contractors.filter((contractor) => {
+    const matchesSearch = contractor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contractor.license.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterStatus === "all" || contractor.status === filterStatus;
+    return matchesSearch && matchesFilter;
+  });
+
+  const getStatusConfig = (status: string) => {
+    switch (status) {
+      case "active":
+        return { icon: CheckCircle, color: "text-green-500", bg: "bg-green-900/30", label: "Active" };
+      case "expiring":
+        return { icon: Clock, color: "text-orange-500", bg: "bg-orange-900/30", label: "Expiring" };
+      case "pending":
+        return { icon: Clock, color: "text-blue-500", bg: "bg-blue-900/30", label: "Pending" };
+      case "suspended":
+        return { icon: AlertTriangle, color: "text-red-500", bg: "bg-red-900/30", label: "Suspended" };
+      default:
+        return { icon: CheckCircle, color: "text-gray-500", bg: "bg-gray-900/30", label: "Unknown" };
+    }
+  };
+
+  const stats = [
+    { label: "Total", value: "412", color: "blue" },
+    { label: "Active", value: "347", color: "green" },
+    { label: "Pending", value: "34", color: "orange" },
+    { label: "Suspended", value: "12", color: "red" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#fff]">
+      <div className="border-b border-gray-800 bg-[#1059A9] px-8 py-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-white">Contractors</h1>
+            <p className="text-sm text-gray-400 mt-1">Manage all contractor profiles and licenses</p>
+          </div>
+          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <UserPlus className="w-4 h-4" />
+            <span>Add Contractor</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="p-8 space-y-6">
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+              <p className="text-3xl font-semibold text-white mb-1">{stat.value}</p>
+              <p className="text-sm text-gray-400">{stat.label} Contractors</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Filters */}
+        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Search contractors..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-[#0f1425] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex gap-3">
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="px-4 py-2 bg-[#0f1425] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="expiring">Expiring</option>
+                <option value="pending">Pending</option>
+                <option value="suspended">Suspended</option>
+              </select>
+              <button className="flex items-center gap-2 px-4 py-2 bg-[#0f1425] border border-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors">
+                <Download className="w-4 h-4" />
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Table */}
+        <div className="bg-[#1e2442] rounded-lg border border-gray-800 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-[#0f1425] border-b border-gray-800">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">License</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">State</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Compliance</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Expires</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                {filteredContractors.map((contractor) => {
+                  const statusConfig = getStatusConfig(contractor.status);
+                  const StatusIcon = statusConfig.icon;
+                  return (
+                    <tr key={contractor.id} className="hover:bg-gray-800/50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div>
+                          <p className="text-sm font-medium text-white">{contractor.name}</p>
+                          <p className="text-xs text-gray-400">{contractor.phone}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.license}</td>
+                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.state}</td>
+                      <td className="px-6 py-4">
+                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
+                          <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
+                          <span className={`text-xs ${statusConfig.color}`}>{statusConfig.label}</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-700/50 rounded-full h-2 w-20">
+                            <div
+                              className={`h-2 rounded-full ${
+                                contractor.compliance >= 95 ? 'bg-green-500' : contractor.compliance >= 85 ? 'bg-orange-500' : 'bg-red-500'
+                              }`}
+                              style={{ width: `${contractor.compliance}%` }}
+                            />
+                          </div>
+                          <span className="text-sm text-white">{contractor.compliance}%</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.expires}</td>
+                      <td className="px-6 py-4">
+                        <button className="p-1 hover:bg-gray-700 rounded">
+                          <MoreVertical className="w-5 h-5 text-gray-400" />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
