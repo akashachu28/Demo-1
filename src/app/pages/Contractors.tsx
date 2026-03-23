@@ -47,7 +47,7 @@ export function Contractors() {
 
   return (
     <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#1059A9] px-8 py-6">
+      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-white">Contractors</h1>

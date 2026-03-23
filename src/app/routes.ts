@@ -10,6 +10,7 @@ import { Renewals } from "./pages/Renewals";
 import { Jurisdictions } from "./pages/Jurisdictions";
 import { Credentials } from "./pages/Credentials";
 import { Documents } from "./pages/Documents";
+import { DocumentProcessor } from "./pages/DocumentProcessor";
 import { AuditTrail } from "./pages/AuditTrail";
 import { Greenfield } from "./pages/Greenfield";
 import { NotFound } from "./pages/NotFound";
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "jurisdictions", Component: Jurisdictions },
       { path: "credentials", Component: Credentials },
       { path: "documents", Component: Documents },
+      { path: "documents/processor", Component: DocumentProcessor },
       { path: "audit", Component: AuditTrail },
       { path: "greenfield", Component: Greenfield },
       { path: "*", Component: NotFound },

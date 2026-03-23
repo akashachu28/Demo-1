@@ -6,19 +6,27 @@ interface DashboardCardProps {
 }
 
 const colorClasses = {
-  blue: "bg-blue-900/30 border-blue-800/50",
-  purple: "bg-purple-900/30 border-purple-800/50",
-  green: "bg-green-900/30 border-green-800/50",
-  orange: "bg-orange-900/30 border-orange-800/50",
-  red: "bg-red-900/30 border-red-800/50",
+  blue: "border-l-4 border-l-blue-500",
+  purple: "border-l-4 border-l-purple-500",
+  green: "border-l-4 border-l-green-500",
+  orange: "border-l-4 border-l-orange-500",
+  red: "border-l-4 border-l-red-500",
+};
+
+const valueColors = {
+  blue: "text-blue-600",
+  purple: "text-purple-600",
+  green: "text-green-600",
+  orange: "text-orange-600",
+  red: "text-red-600",
 };
 
 export function DashboardCard({ title, value, subtitle, color }: DashboardCardProps) {
   return (
-    <div className={`rounded-lg border p-6 ${colorClasses[color]}`}>
-      <p className="text-xs text-gray-400 uppercase tracking-wide mb-3">{title}</p>
-      <p className="text-4xl font-semibold text-white mb-2">{value}</p>
-      <p className="text-sm text-gray-400">{subtitle}</p>
+    <div className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 ${colorClasses[color]} hover:shadow-md transition-shadow`}>
+      <p className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-3">{title}</p>
+      <p className={`text-3xl font-bold mb-2 ${valueColors[color]}`}>{value}</p>
+      <p className="text-sm text-gray-600">{subtitle}</p>
     </div>
   );
 }

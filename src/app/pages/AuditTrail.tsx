@@ -37,21 +37,21 @@ export function AuditTrail() {
   const getActionColor = (type: string) => {
     switch (type) {
       case "verification":
-        return "text-green-500 bg-green-900/30";
+        return "text-green-600 bg-green-100";
       case "document":
-        return "text-blue-500 bg-blue-900/30";
+        return "text-blue-600 bg-blue-100";
       case "contractor":
-        return "text-purple-500 bg-purple-900/30";
+        return "text-purple-600 bg-purple-100";
       case "compliance":
-        return "text-orange-500 bg-orange-900/30";
+        return "text-orange-600 bg-orange-100";
       case "renewal":
-        return "text-teal-500 bg-teal-900/30";
+        return "text-teal-600 bg-teal-100";
       case "auth":
-        return "text-gray-500 bg-gray-900/30";
+        return "text-gray-600 bg-gray-100";
       case "settings":
-        return "text-yellow-500 bg-yellow-900/30";
+        return "text-yellow-600 bg-yellow-100";
       default:
-        return "text-gray-500 bg-gray-900/30";
+        return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -63,10 +63,10 @@ export function AuditTrail() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#1059A9] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-6">
         <h1 className="text-2xl font-semibold text-white">Audit Trail</h1>
-        <p className="text-sm text-gray-400 mt-1">Complete system activity log and compliance tracking</p>
+        <p className="text-sm text-blue-100 mt-1">Complete system activity log and compliance tracking</p>
       </div>
 
       <div className="p-8 space-y-6">
@@ -75,25 +75,25 @@ export function AuditTrail() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-500" />
-                  <p className="text-sm text-gray-400">{stat.label}</p>
+                  <Icon className="w-5 h-5 text-blue-600" />
+                  <p className="text-sm text-gray-600">{stat.label}</p>
                 </div>
-                <p className="text-3xl font-semibold text-white">{stat.value}</p>
+                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
               </div>
             );
           })}
         </div>
 
         {/* Filters */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-4">
-            <Filter className="w-5 h-5 text-gray-400" />
+            <Filter className="w-5 h-5 text-gray-500" />
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-2 bg-[#0f1425] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="all">All Events</option>
               <option value="verification">Verifications</option>
@@ -104,31 +104,31 @@ export function AuditTrail() {
               <option value="auth">Authentication</option>
               <option value="settings">Settings</option>
             </select>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-600">
               Showing {filteredLogs.length} of {auditLogs.length} events
             </span>
           </div>
         </div>
 
         {/* Audit Log */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Activity Log</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity Log</h3>
           <div className="space-y-3">
             {filteredLogs.map((log) => {
               const Icon = getActionIcon(log.type);
               const colorClass = getActionColor(log.type);
               return (
-                <div key={log.id} className="bg-[#0f1425] rounded-lg p-4 border border-gray-800 hover:border-gray-700 transition-colors">
+                <div key={log.id} className="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:border-gray-200 transition-colors">
                   <div className="flex items-start gap-4">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${colorClass}`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-4 mb-1">
-                        <p className="text-sm font-medium text-white">{log.action}</p>
+                        <p className="text-sm font-medium text-gray-900">{log.action}</p>
                         <span className="text-xs text-gray-500 whitespace-nowrap">{log.timestamp}</span>
                       </div>
-                      <p className="text-sm text-gray-400 mb-2">{log.target}</p>
+                      <p className="text-sm text-gray-600 mb-2">{log.target}</p>
                       <div className="flex items-center gap-4 text-xs text-gray-500">
                         <div className="flex items-center gap-1">
                           <User className="w-3 h-3" />

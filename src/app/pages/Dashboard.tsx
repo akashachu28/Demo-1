@@ -8,13 +8,33 @@ import {
   Shield,
   AlertCircle
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { MetricBar } from "../components/MetricBar";
 import { DashboardCard } from "../components/DashboardCard";
 import { CategoryCard } from "../components/CategoryCard";
 import { RecentActivityDark } from "../components/RecentActivityDark";
 import { ComplianceByBrand } from "../components/ComplianceByBrand";
+import { checkHealth } from "../utils/api";
 
 export function Dashboard() {
+  const [healthStatus, setHealthStatus] = useState<string>("checking");
+
+  // Check API health on component mount
+  useEffect(() => {
+    const performHealthCheck = async () => {
+      try {
+        const response = await checkHealth();
+        console.log('Health check response:', response);
+        setHealthStatus("healthy");
+      } catch (error) {
+        console.error('Health check failed:', error);
+        setHealthStatus("unhealthy");
+      }
+    };
+
+    performHealthCheck();
+  }, []);
+
   const metrics = [
     { label: "STATES COMPLIANT", value: "33/36", color: "blue" as const },
     { label: "INSURANCE POLICIES", value: "7", color: "purple" as const },
@@ -119,17 +139,33 @@ export function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="border-b border-gray-800 bg-[#1059A9] px-8 py-6">
-        <h1 className="text-2xl font-semibold text-white">National Compliance Dashboard</h1>
-        <p className="text-sm text-gray-400 mt-1">Every leader's home screen — all brands, all states, complete visibility</p>
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-white">National Compliance Dashboard</h1>
+            <p className="text-sm text-blue-100 mt-1">Every leader's home screen — all brands, all states, complete visibility</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className={`w-3 h-3 rounded-full ${
+              healthStatus === "healthy" ? "bg-green-400" : 
+              healthStatus === "unhealthy" ? "bg-red-400" : "bg-yellow-400"
+            }`}></div>
+            <span className="text-sm text-blue-100">
+              API {healthStatus === "healthy" ? "Connected" : healthStatus === "unhealthy" ? "Disconnected" : "Checking..."}
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Content */}
       <div className="p-8 space-y-6">
         {/* Metrics Bar */}
-        <MetricBar metrics={metrics} />
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+          <MetricBar metrics={metrics} />
+        </div>
+       
 
         {/* Summary Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

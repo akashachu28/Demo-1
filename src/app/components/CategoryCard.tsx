@@ -8,29 +8,29 @@ interface CategoryCardProps {
 
 const colorClasses = {
   blue: {
-    bg: "bg-blue-900/20",
-    border: "border-blue-800/50",
-    iconBg: "bg-blue-600",
+    iconBg: "bg-blue-100",
+    iconText: "text-blue-600",
+    accent: "text-blue-600",
   },
   purple: {
-    bg: "bg-purple-900/20",
-    border: "border-purple-800/50",
-    iconBg: "bg-purple-600",
+    iconBg: "bg-purple-100",
+    iconText: "text-purple-600",
+    accent: "text-purple-600",
   },
   green: {
-    bg: "bg-green-900/20",
-    border: "border-green-800/50",
-    iconBg: "bg-green-600",
+    iconBg: "bg-green-100",
+    iconText: "text-green-600",
+    accent: "text-green-600",
   },
   orange: {
-    bg: "bg-orange-900/20",
-    border: "border-orange-800/50",
-    iconBg: "bg-orange-600",
+    iconBg: "bg-orange-100",
+    iconText: "text-orange-600",
+    accent: "text-orange-600",
   },
   teal: {
-    bg: "bg-teal-900/20",
-    border: "border-teal-800/50",
-    iconBg: "bg-teal-600",
+    iconBg: "bg-teal-100",
+    iconText: "text-teal-600",
+    accent: "text-teal-600",
   },
 };
 
@@ -38,19 +38,19 @@ export function CategoryCard({ title, icon, color, stats, tags }: CategoryCardPr
   const colors = colorClasses[color];
 
   return (
-    <div className={`rounded-lg border ${colors.border} ${colors.bg} p-6`}>
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
       <div className="flex items-center gap-3 mb-6">
-        <div className={`w-10 h-10 ${colors.iconBg} rounded-lg flex items-center justify-center text-xl`}>
+        <div className={`w-12 h-12 ${colors.iconBg} rounded-lg flex items-center justify-center text-xl ${colors.iconText}`}>
           {icon}
         </div>
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
       </div>
 
-      <div className="space-y-3 mb-6">
+      <div className="space-y-4 mb-6">
         {stats.map((stat, idx) => (
           <div key={idx} className="flex items-center justify-between">
-            <p className="text-sm text-gray-400">{stat.label}</p>
-            <p className="text-sm font-semibold text-white">{stat.value}</p>
+            <p className="text-sm text-gray-600">{stat.label}</p>
+            <p className={`text-sm font-semibold ${colors.accent}`}>{stat.value}</p>
           </div>
         ))}
       </div>
@@ -59,7 +59,7 @@ export function CategoryCard({ title, icon, color, stats, tags }: CategoryCardPr
         {tags.map((tag) => (
           <span
             key={tag}
-            className="px-3 py-1 bg-gray-800/50 text-gray-300 text-xs rounded-full"
+            className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-medium"
           >
             {tag}
           </span>
