@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Eye, EyeOff, Lock, User, AlertCircle, X, ArrowLeft } from 'lucide-react';
 import renuityLogo from '../assets/renuityLogo.svg';
-import backgroundImg from '../assets/bgAs.avif';
+import backgroundImg from '../assets/bgAS.avif';
 
 export function Login() {
   const [email, setEmail] = useState('');
