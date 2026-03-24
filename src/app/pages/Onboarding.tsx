@@ -23,10 +23,10 @@ export function Onboarding() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <h1 className="text-2xl font-semibold text-white">Onboarding</h1>
-        <p className="text-sm text-gray-400 mt-1">Track contractor onboarding progress and status</p>
+        <p className="text-sm text-blue-100 mt-1">Track contractor onboarding progress and status</p>
       </div>
 
       <div className="p-8 space-y-6">
@@ -35,48 +35,48 @@ export function Onboarding() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-500" />
-                  <p className="text-sm text-gray-400">{stat.label}</p>
+                  <Icon className="w-5 h-5 text-blue-600" />
+                  <p className="text-sm text-gray-600">{stat.label}</p>
                 </div>
-                <p className="text-3xl font-semibold text-white">{stat.value}</p>
+                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
               </div>
             );
           })}
         </div>
 
         {/* Onboarding Queue */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Active Onboarding Queue</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Onboarding Queue</h3>
           <div className="space-y-4">
             {onboardingQueue.map((item) => (
-              <div key={item.id} className="bg-[#0f1425] rounded-lg p-5 border border-gray-800">
+              <div key={item.id} className="bg-gray-50 rounded-lg p-5 border border-gray-100">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="font-semibold text-white">{item.name}</h4>
-                    <p className="text-sm text-gray-400 mt-1">{item.state}</p>
+                    <h4 className="font-semibold text-gray-900">{item.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">{item.state}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-blue-400">{item.stage}</p>
+                    <p className="text-sm text-blue-600 font-medium">{item.stage}</p>
                     <p className="text-xs text-gray-500 mt-1">Submitted {item.submitted}</p>
                   </div>
                 </div>
                 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-400">Progress</span>
-                    <span className="text-white font-medium">{item.progress}%</span>
+                    <span className="text-gray-600">Progress</span>
+                    <span className="text-gray-900 font-medium">{item.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-700/50 rounded-full h-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="bg-blue-500 h-2 rounded-full transition-all"
+                      className="bg-blue-600 h-2 rounded-full transition-all"
                       style={{ width: `${item.progress}%` }}
                     />
                   </div>
                   <div className="flex items-center justify-between pt-2">
                     <p className="text-xs text-gray-500">Assignee: {item.assignee}</p>
-                    <button className="text-xs text-blue-400 hover:text-blue-300">View Details →</button>
+                    <button className="text-xs text-blue-600 hover:text-blue-700 font-medium">View Details →</button>
                   </div>
                 </div>
               </div>
@@ -85,28 +85,28 @@ export function Onboarding() {
         </div>
 
         {/* Recently Completed */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Recently Completed</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recently Completed</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Name</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Completed</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Duration</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Name</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Completed</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Duration</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {recentlyCompleted.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-800/30">
-                    <td className="px-4 py-4 text-sm text-white">{item.name}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{item.state}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{item.completedDate}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{item.duration}</td>
+                  <tr key={item.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">{item.name}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{item.state}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{item.completedDate}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{item.duration}</td>
                     <td className="px-4 py-4">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-green-900/30 text-green-500 rounded-full text-xs">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">
                         <CheckCircle className="w-3 h-3" />
                         Approved
                       </span>

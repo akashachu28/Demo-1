@@ -1,3 +1,90 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* React Doc Viewer Styles */
+#react-doc-viewer {
+  height: 100% !important;
+}
+
+#react-doc-viewer > div {
+  height: 100% !important;
+}
+
+/* Override react-doc-viewer default styles to match our theme */
+.react-doc-viewer__container {
+  background-color: white !important;
+  border: none !important;
+}
+
+.react-doc-viewer__pdf-pagination {
+  background-color: #f9fafb !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.react-doc-viewer__pdf-pagination button {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0 0.25rem !important;
+}
+
+.react-doc-viewer__pdf-pagination button:hover {
+  background-color: #2563eb !important;
+}
+
+.react-doc-viewer__pdf-pagination button:disabled {
+  background-color: #9ca3af !important;
+  cursor: not-allowed !important;
+}
+
+.react-doc-viewer__pdf-pagination input {
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.375rem !important;
+  padding: 0.25rem 0.5rem !important;
+  margin: 0 0.5rem !important;
+  text-align: center !important;
+}
+
+/* Custom scrollbar for sidebar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Login page animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #36b0c9 0%, #003057 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom focus styles */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(54, 176, 201, 0.1);
+  border-color: #36b0c9;
+}

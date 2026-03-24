@@ -11,12 +11,30 @@ import {
   FileCheck,
   ClipboardList,
   CheckSquare,
-  TrendingUp
+  TrendingUp,
+  LogOut,
+  User
 } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 import renuityLogo from "../assets/renuityLogo.svg";
 
+interface SidebarItem {
+  path: string;
+  label: string;
+  icon: React.ComponentType<any>;
+  end?: boolean;
+  indent?: boolean;
+}
+
+interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
+
 export function Layout() {
-  const sidebarSections = [
+  const { user, logout } = useAuth();
+
+  const sidebarSections: SidebarSection[] = [
     {
       title: "LICENSES",
       items: [
@@ -52,30 +70,33 @@ export function Layout() {
     },
   ];
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className="min-h-screen bg-[#0E4665] flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#0E4665] border-r border-gray-800 flex-shrink-0">
+      <aside className="w-64 bg-[#0E4665] border-r border-gray-800 flex-shrink-0 flex flex-col">
         {/* Logo */}
         <div className="p-6 border-b border-gray-800 bg-white">
-          <div className="flex justify-center items-center gap-3 ">
+          <div className="flex justify-center items-center gap-3">
             <img 
               src={renuityLogo} 
               alt="Renuity Logo" 
-              className="w-50 h-10 "
+              className="w-50 h-10"
             />
-
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="py-4 overflow-y-auto h-[calc(100vh-88px)] scrollbar-hide">
+        <nav className="py-4 overflow-y-auto flex-1 scrollbar-hide">
           {sidebarSections.map((section, idx) => (
             <div key={section.title} className={idx > 0 ? "mt-6" : ""}>
               <h3 className="text-xs font-semibold text-white mb-2 px-3">
                 {section.title}
               </h3>
-              <div className="">
+              <div>
                 {section.items.map((item) => (
                   <NavLink
                     key={item.path}
@@ -99,6 +120,26 @@ export function Layout() {
             </div>
           ))}
         </nav>
+
+        {/* User Profile & Logout */}
+        <div className="border-t border-gray-800 p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 bg-[#36b0c9] rounded-full flex items-center justify-center">
+              <User className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+              <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+            </div>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:bg-[#003057] hover:text-white transition-colors rounded-lg"
+          >
+            <LogOut className="w-4 h-4" />
+            <span className="text-sm">Sign Out</span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}

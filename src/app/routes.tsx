@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/Layout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Dashboard } from "./pages/Dashboard";
 import { Licenses } from "./pages/Licenses";
 import { Contractors } from "./pages/Contractors";
@@ -15,10 +16,19 @@ import { AuditTrail } from "./pages/AuditTrail";
 import { Greenfield } from "./pages/Greenfield";
 import { NotFound } from "./pages/NotFound";
 
+// Protected Layout Component
+function ProtectedLayout() {
+  return (
+    <ProtectedRoute>
+      <Layout />
+    </ProtectedRoute>
+  );
+}
+
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Layout,
+    Component: ProtectedLayout,
     children: [
       { index: true, Component: Dashboard },
       { path: "reports", Component: Licenses },

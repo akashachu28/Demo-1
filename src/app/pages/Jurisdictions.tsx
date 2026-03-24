@@ -22,102 +22,102 @@ export function Jurisdictions() {
   const getRegulationColor = (level: string) => {
     switch (level) {
       case "High":
-        return "text-red-500 bg-red-900/30";
+        return "text-red-600 bg-red-100";
       case "Medium":
-        return "text-orange-500 bg-orange-900/30";
+        return "text-orange-600 bg-orange-100";
       case "Low":
-        return "text-green-500 bg-green-900/30";
+        return "text-green-600 bg-green-100";
       default:
-        return "text-gray-500 bg-gray-900/30";
+        return "text-gray-600 bg-gray-100";
     }
   };
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
       case "High":
-        return "text-red-500";
+        return "text-red-600";
       case "Medium":
-        return "text-orange-500";
+        return "text-orange-600";
       case "Low":
-        return "text-blue-500";
+        return "text-blue-600";
       default:
-        return "text-gray-500";
+        return "text-gray-600";
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <h1 className="text-2xl font-semibold text-white">Jurisdictions</h1>
-        <p className="text-sm text-gray-400 mt-1">State and county compliance requirements</p>
+        <p className="text-sm text-blue-100 mt-1">State and county compliance requirements</p>
       </div>
 
       <div className="p-8 space-y-6">
         {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-2">
-              <MapPin className="w-5 h-5 text-blue-500" />
-              <p className="text-sm text-gray-400">Active States</p>
+              <MapPin className="w-5 h-5 text-blue-600" />
+              <p className="text-sm text-gray-600">Active States</p>
             </div>
-            <p className="text-3xl font-semibold text-white">36</p>
+            <p className="text-3xl font-bold text-gray-900">36</p>
           </div>
-          <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-2">
-              <FileText className="w-5 h-5 text-purple-500" />
-              <p className="text-sm text-gray-400">Total Counties</p>
+              <FileText className="w-5 h-5 text-purple-600" />
+              <p className="text-sm text-gray-600">Total Counties</p>
             </div>
-            <p className="text-3xl font-semibold text-white">721</p>
+            <p className="text-3xl font-bold text-gray-900">721</p>
           </div>
-          <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-2">
-              <Users className="w-5 h-5 text-green-500" />
-              <p className="text-sm text-gray-400">Total Licenses</p>
+              <Users className="w-5 h-5 text-green-600" />
+              <p className="text-sm text-gray-600">Total Licenses</p>
             </div>
-            <p className="text-3xl font-semibold text-white">583</p>
+            <p className="text-3xl font-bold text-gray-900">583</p>
           </div>
-          <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-2">
-              <DollarSign className="w-5 h-5 text-orange-500" />
-              <p className="text-sm text-gray-400">Avg Cost/License</p>
+              <DollarSign className="w-5 h-5 text-orange-600" />
+              <p className="text-sm text-gray-600">Avg Cost/License</p>
             </div>
-            <p className="text-3xl font-semibold text-white">$425</p>
+            <p className="text-3xl font-bold text-gray-900">$425</p>
           </div>
         </div>
 
         {/* Jurisdictions Table */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">State Jurisdictions</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">State Jurisdictions</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Counties</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Contractors</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Licenses</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Complexity</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Avg Cost</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Counties</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractors</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Licenses</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Complexity</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Avg Cost</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {jurisdictions.map((jurisdiction) => (
-                  <tr key={jurisdiction.state} className="hover:bg-gray-800/30">
+                  <tr key={jurisdiction.state} className="hover:bg-gray-50">
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-blue-500" />
-                        <span className="text-sm text-white font-medium">{jurisdiction.state}</span>
+                        <MapPin className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm text-gray-900 font-medium">{jurisdiction.state}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-300">{jurisdiction.counties}</td>
-                    <td className="px-4 py-4 text-sm text-gray-300">{jurisdiction.contractors}</td>
-                    <td className="px-4 py-4 text-sm text-gray-300">{jurisdiction.licenses}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.counties}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.contractors}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.licenses}</td>
                     <td className="px-4 py-4">
-                      <span className={`inline-flex px-3 py-1 rounded-full text-xs ${getRegulationColor(jurisdiction.regulations)}`}>
+                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getRegulationColor(jurisdiction.regulations)}`}>
                         {jurisdiction.regulations}
                       </span>
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-300 font-medium">{jurisdiction.avgCost}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700 font-medium">{jurisdiction.avgCost}</td>
                   </tr>
                 ))}
               </tbody>
@@ -126,21 +126,21 @@ export function Jurisdictions() {
         </div>
 
         {/* Regulatory Updates */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Recent Regulatory Updates</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Regulatory Updates</h3>
           <div className="space-y-4">
             {regulatoryUpdates.map((update, idx) => (
-              <div key={idx} className="bg-[#0f1425] rounded-lg p-4 border border-gray-800">
+              <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-blue-500" />
-                    <span className="text-sm font-semibold text-white">{update.state}</span>
+                    <MapPin className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-semibold text-gray-900">{update.state}</span>
                   </div>
                   <span className={`text-xs font-medium ${getImpactColor(update.impact)}`}>
                     {update.impact} Impact
                   </span>
                 </div>
-                <p className="text-sm text-gray-300 mb-2">{update.update}</p>
+                <p className="text-sm text-gray-700 mb-2">{update.update}</p>
                 <p className="text-xs text-gray-500">{update.date}</p>
               </div>
             ))}

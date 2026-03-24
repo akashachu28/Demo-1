@@ -26,15 +26,15 @@ export function Contractors() {
   const getStatusConfig = (status: string) => {
     switch (status) {
       case "active":
-        return { icon: CheckCircle, color: "text-green-500", bg: "bg-green-900/30", label: "Active" };
+        return { icon: CheckCircle, color: "text-green-600", bg: "bg-green-100", label: "Active" };
       case "expiring":
-        return { icon: Clock, color: "text-orange-500", bg: "bg-orange-900/30", label: "Expiring" };
+        return { icon: Clock, color: "text-orange-600", bg: "bg-orange-100", label: "Expiring" };
       case "pending":
-        return { icon: Clock, color: "text-blue-500", bg: "bg-blue-900/30", label: "Pending" };
+        return { icon: Clock, color: "text-blue-600", bg: "bg-blue-100", label: "Pending" };
       case "suspended":
-        return { icon: AlertTriangle, color: "text-red-500", bg: "bg-red-900/30", label: "Suspended" };
+        return { icon: AlertTriangle, color: "text-red-600", bg: "bg-red-100", label: "Suspended" };
       default:
-        return { icon: CheckCircle, color: "text-gray-500", bg: "bg-gray-900/30", label: "Unknown" };
+        return { icon: CheckCircle, color: "text-gray-600", bg: "bg-gray-100", label: "Unknown" };
     }
   };
 
@@ -46,14 +46,14 @@ export function Contractors() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-white">Contractors</h1>
-            <p className="text-sm text-gray-400 mt-1">Manage all contractor profiles and licenses</p>
+            <p className="text-sm text-blue-100 mt-1">Manage all contractor profiles and licenses</p>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors">
             <UserPlus className="w-4 h-4" />
             <span>Add Contractor</span>
           </button>
@@ -64,31 +64,31 @@ export function Contractors() {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-              <p className="text-3xl font-semibold text-white mb-1">{stat.value}</p>
-              <p className="text-sm text-gray-400">{stat.label} Contractors</p>
+            <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+              <p className="text-sm text-gray-600">{stat.label} Contractors</p>
             </div>
           ))}
         </div>
 
         {/* Filters */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 hover:shadow-md transition-shadow">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search contractors..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-[#0f1425] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div className="flex gap-3">
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-2 bg-[#0f1425] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
@@ -96,7 +96,7 @@ export function Contractors() {
                 <option value="pending">Pending</option>
                 <option value="suspended">Suspended</option>
               </select>
-              <button className="flex items-center gap-2 px-4 py-2 bg-[#0f1425] border border-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
                 <Download className="w-4 h-4" />
                 <span>Export</span>
               </button>
@@ -105,43 +105,43 @@ export function Contractors() {
         </div>
 
         {/* Table */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 overflow-hidden">
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-[#0f1425] border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">License</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">State</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Compliance</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Expires</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">License</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">State</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Compliance</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Expires</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {filteredContractors.map((contractor) => {
                   const statusConfig = getStatusConfig(contractor.status);
                   const StatusIcon = statusConfig.icon;
                   return (
-                    <tr key={contractor.id} className="hover:bg-gray-800/50 transition-colors">
+                    <tr key={contractor.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div>
-                          <p className="text-sm font-medium text-white">{contractor.name}</p>
-                          <p className="text-xs text-gray-400">{contractor.phone}</p>
+                          <p className="text-sm font-medium text-gray-900">{contractor.name}</p>
+                          <p className="text-xs text-gray-500">{contractor.phone}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.license}</td>
-                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.state}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{contractor.license}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{contractor.state}</td>
                       <td className="px-6 py-4">
                         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
                           <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
-                          <span className={`text-xs ${statusConfig.color}`}>{statusConfig.label}</span>
+                          <span className={`text-xs font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-gray-700/50 rounded-full h-2 w-20">
+                          <div className="flex-1 bg-gray-200 rounded-full h-2 w-20">
                             <div
                               className={`h-2 rounded-full ${
                                 contractor.compliance >= 95 ? 'bg-green-500' : contractor.compliance >= 85 ? 'bg-orange-500' : 'bg-red-500'
@@ -149,13 +149,13 @@ export function Contractors() {
                               style={{ width: `${contractor.compliance}%` }}
                             />
                           </div>
-                          <span className="text-sm text-white">{contractor.compliance}%</span>
+                          <span className="text-sm text-gray-900 font-medium">{contractor.compliance}%</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-300">{contractor.expires}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{contractor.expires}</td>
                       <td className="px-6 py-4">
-                        <button className="p-1 hover:bg-gray-700 rounded">
-                          <MoreVertical className="w-5 h-5 text-gray-400" />
+                        <button className="p-1 hover:bg-gray-100 rounded">
+                          <MoreVertical className="w-5 h-5 text-gray-500" />
                         </button>
                       </td>
                     </tr>

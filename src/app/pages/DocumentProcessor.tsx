@@ -2,6 +2,7 @@ import { FileText, ArrowLeft, Loader2, FileCheck, Calendar, Building } from "luc
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { extractDocument } from "../utils/api";
+import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 
 interface ProcessorState {
   file: File;
@@ -30,7 +31,7 @@ function DocumentVisualization({ data }: { data: DocumentData }) {
   const { document_type, key_value_pairs, ocr_total_confidence } = analysis;
 
   return (
-    <div className="bg-white rounded-lg border overflow-auto max-h-full">
+    <div className="bg-white rounded-lg border -auto max-h-full">
       {/* Header Section */}
       <div className="border-b border-gray-200 p-4">
         <div className="flex items-center gap-3 mb-3">
@@ -58,7 +59,7 @@ function DocumentVisualization({ data }: { data: DocumentData }) {
       {/* Key-Value Pairs Table */}
       <div className="p-4">
         <h4 className="text-md font-semibold text-gray-900 mb-3">Extracted Information</h4>
-        <div className="overflow-x-auto">
+        <div className="-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b border-gray-200">
@@ -123,6 +124,200 @@ function getConfidenceTextColor(confidence: number) {
   return 'text-red-600';
 }
 
+function DocumentPreview({ file, fileName, fileUrl }: { file: File; fileName: string; fileUrl: string }) {
+  const [viewerError, setViewerError] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const fileType = file.type || getFileTypeFromName(fileName);
+  const isPDF = fileType === 'application/pdf';
+  const isImage = fileType.startsWith('image/');
+
+  // For PDFs, use native browser viewer by default
+  if (isPDF) {
+    return (
+      <div className="h-full w-full relative">
+        <iframe
+          src={`${fileUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=150`}
+          className="w-full h-full border-0"
+          title={`PDF Preview: ${fileName}`}
+          onError={() => {
+            console.error('PDF iframe failed to load');
+            setViewerError(true);
+          }}
+          style={{
+            transform: 'scale(1)',
+            transformOrigin: 'top left'
+          }}
+        />
+        {viewerError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+            <div className="text-center max-w-md">
+              <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+              <p className="text-sm text-gray-600 mb-2">
+                PDF preview not available
+              </p>
+              <p className="text-xs text-gray-500 mb-4">
+                Your browser may not support PDF viewing
+              </p>
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    const url = URL.createObjectURL(file);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="block w-full px-3 py-2 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+                >
+                  Download PDF
+                </button>
+                <button
+                  onClick={() => window.open(fileUrl, '_blank')}
+                  className="block w-full px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                >
+                  Open in New Tab
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // For images, use native img element
+  if (isImage) {
+    return (
+      <div className="h-fit w-full relative bg-gray-50 flex  justify-center">
+        {!imageError ? (
+          <img
+            src={fileUrl}
+            alt={fileName}
+            className="max-w-full max-h-full object-contain"
+            onError={() => {
+              console.error('Image failed to load');
+              setImageError(true);
+            }}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              objectFit: 'contain'
+            }}
+          />
+        ) : (
+          <div className="text-center max-w-md">
+            <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+            <p className="text-sm text-gray-600 mb-2">
+              Image preview not available
+            </p>
+            <p className="text-xs text-gray-500 mb-4">
+              Failed to load image file
+            </p>
+            <button
+              onClick={() => {
+                const url = URL.createObjectURL(file);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="block w-full px-3 py-2 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+            >
+              Download Image
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // For non-PDF, non-image files, use DocViewer
+  const docs = [
+    {
+      uri: fileUrl,
+      fileName: fileName,
+      fileType: fileType,
+    }
+  ];
+
+  if (viewerError) {
+    return (
+      <div className="h-full flex items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md">
+          <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+          <p className="text-sm text-gray-600 mb-2">
+            Preview not available for this file type
+          </p>
+          <p className="text-xs text-gray-500 mb-4">
+            Supported formats: PDF, DOC, DOCX, TXT, JPG, PNG
+          </p>
+          <button
+            onClick={() => {
+              const url = URL.createObjectURL(file);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = fileName;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+            className="block w-full px-3 py-2 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+          >
+            Download File
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-full w-full ">
+      <DocViewer
+        documents={docs}
+        pluginRenderers={DocViewerRenderers}
+        config={{
+          header: {
+            disableHeader: true,
+          },
+        }}
+        style={{
+          height: "100%",
+          width: "100%",
+        }}
+        onError={(error) => {
+          console.error('DocViewer error:', error);
+          setViewerError(true);
+        }}
+      />
+    </div>
+  );
+}
+
+// Helper function to determine file type from filename
+function getFileTypeFromName(fileName: string): string {
+  const extension = fileName.split('.').pop()?.toLowerCase();
+  switch (extension) {
+    case 'pdf':
+      return 'application/pdf';
+    case 'doc':
+      return 'application/msword';
+    case 'docx':
+      return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    case 'jpg':
+      return 'image/jpeg';
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'txt':
+      return 'text/plain';
+    default:
+      return 'application/octet-stream';
+  }
+}
+
 export function DocumentProcessor() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -130,6 +325,7 @@ export function DocumentProcessor() {
   const [response, setResponse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [showRawJson, setShowRawJson] = useState(false);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
   
   const state = location.state as ProcessorState;
 
@@ -139,6 +335,16 @@ export function DocumentProcessor() {
       navigate('/documents');
       return;
     }
+
+    // Create object URL for file preview - only create once
+    if (!fileUrl) {
+      const url = URL.createObjectURL(state.file);
+      setFileUrl(url);
+    }
+  }, [state, navigate, fileUrl]);
+
+  useEffect(() => {
+    if (!state?.file || !fileUrl) return;
 
     const processFile = async () => {
       try {
@@ -155,7 +361,16 @@ export function DocumentProcessor() {
     };
 
     processFile();
-  }, [state, navigate]);
+  }, [state?.file, fileUrl]);
+
+  // Cleanup only on unmount
+  useEffect(() => {
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [fileUrl]);
 
   if (!state?.file) {
     return null; // Will redirect in useEffect
@@ -164,7 +379,7 @@ export function DocumentProcessor() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-6">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate('/documents')}
@@ -183,22 +398,44 @@ export function DocumentProcessor() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[calc(100vh-200px)]">
           {/* Left Side - File Preview */}
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Uploaded Document</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Document Preview</h2>
             
-            <div className="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center h-full flex flex-col items-center justify-center">
-              <FileText className="w-16 h-16 text-blue-600 mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">{state.fileName}</h3>
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>Size: {(state.file.size / (1024 * 1024)).toFixed(2)} MB</p>
-                <p>Type: {state.file.type || 'Unknown'}</p>
-                <p>Last Modified: {new Date(state.file.lastModified).toLocaleDateString()}</p>
+            <div className="h-full flex flex-col">
+              {/* File Info */}
+              <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-blue-600" />
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-gray-900">{state.fileName}</h3>
+                    <div className="text-xs text-gray-600 mt-1 space-x-4">
+                      <span>Size: {(state.file.size / (1024 * 1024)).toFixed(2)} MB</span>
+                      <span>Type: {state.file.type || 'Unknown'}</span>
+                      <span>Modified: {new Date(state.file.lastModified).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              {/* File preview area - could be enhanced to show actual file content */}
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg w-full max-w-md">
-                <p className="text-xs text-gray-500 text-center">
-                  File preview not available for this format
-                </p>
+
+              {/* Document Viewer */}
+              <div className="flex-1 border border-gray-200 rounded-lg">
+                {fileUrl ? (
+                  <div className="h-full w-full">
+                    <DocumentPreview 
+                      file={state.file} 
+                      fileName={state.fileName} 
+                      fileUrl={fileUrl} 
+                    />
+                  </div>
+                ) : (
+                  <div className="h-full flex items-center justify-center bg-gray-50">
+                    <div className="text-center">
+                      <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                      <p className="text-sm text-gray-500">
+                        Document preview loading...
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -256,7 +493,7 @@ export function DocumentProcessor() {
               )}
 
               {response && !isProcessing && !error && (
-                <div className="flex-1 overflow-auto">
+                <div className="flex-1 -auto">
                   <div className="bg-gray-50 rounded-lg p-4 h-full">
                     <div className="mb-4 flex items-center justify-between">
                       <span className="text-sm font-medium text-green-700 bg-green-100 px-3 py-1 rounded-full">
@@ -282,7 +519,7 @@ export function DocumentProcessor() {
                     </div>
                     
                     {showRawJson ? (
-                      <pre className="text-xs text-gray-800 whitespace-pre-wrap font-mono bg-white p-4 rounded border overflow-auto max-h-full">
+                      <pre className="text-xs text-gray-800 whitespace-pre-wrap font-mono bg-white p-4 rounded border -auto max-h-full">
                         {JSON.stringify(response, null, 2)}
                       </pre>
                     ) : (

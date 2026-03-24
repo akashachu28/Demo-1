@@ -18,13 +18,13 @@ export function Renewals() {
   const getStatusConfig = (status: string) => {
     switch (status) {
       case "pending":
-        return { color: "text-orange-500", bg: "bg-orange-900/30", label: "Action Required" };
+        return { color: "text-orange-600", bg: "bg-orange-100", label: "Action Required" };
       case "initiated":
-        return { color: "text-blue-500", bg: "bg-blue-900/30", label: "In Progress" };
+        return { color: "text-blue-600", bg: "bg-blue-100", label: "In Progress" };
       case "scheduled":
-        return { color: "text-purple-500", bg: "bg-purple-900/30", label: "Scheduled" };
+        return { color: "text-purple-600", bg: "bg-purple-100", label: "Scheduled" };
       default:
-        return { color: "text-gray-500", bg: "bg-gray-900/30", label: "Unknown" };
+        return { color: "text-gray-600", bg: "bg-gray-100", label: "Unknown" };
     }
   };
 
@@ -36,10 +36,10 @@ export function Renewals() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <h1 className="text-2xl font-semibold text-white">License Renewals</h1>
-        <p className="text-sm text-gray-400 mt-1">Track and manage contractor license renewals</p>
+        <p className="text-sm text-blue-100 mt-1">Track and manage contractor license renewals</p>
       </div>
 
       <div className="p-8 space-y-6">
@@ -48,60 +48,60 @@ export function Renewals() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-500" />
-                  <p className="text-sm text-gray-400">{stat.label}</p>
+                  <Icon className="w-5 h-5 text-blue-600" />
+                  <p className="text-sm text-gray-600">{stat.label}</p>
                 </div>
-                <p className="text-3xl font-semibold text-white">{stat.value}</p>
+                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
               </div>
             );
           })}
         </div>
 
         {/* Upcoming Renewals */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">Upcoming Renewals</h3>
-            <span className="text-sm text-gray-400">Next 90 days</span>
+            <h3 className="text-lg font-semibold text-gray-900">Upcoming Renewals</h3>
+            <span className="text-sm text-gray-600">Next 90 days</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">License</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Expires</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Days Left</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Cost</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Days Left</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {upcomingRenewals.map((renewal) => {
                   const statusConfig = getStatusConfig(renewal.status);
                   return (
-                    <tr key={renewal.id} className="hover:bg-gray-800/30">
-                      <td className="px-4 py-4 text-sm text-white font-medium">{renewal.contractor}</td>
-                      <td className="px-4 py-4 text-sm text-gray-400">{renewal.license}</td>
-                      <td className="px-4 py-4 text-sm text-gray-400">{renewal.state}</td>
+                    <tr key={renewal.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
+                      <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
+                      <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4 text-gray-500" />
-                          <span className="text-sm text-gray-300">{renewal.expiryDate}</span>
+                          <span className="text-sm text-gray-700">{renewal.expiryDate}</span>
                         </div>
                       </td>
                       <td className="px-4 py-4">
                         <span className={`text-sm font-medium ${
-                          renewal.daysLeft <= 30 ? 'text-red-500' : renewal.daysLeft <= 60 ? 'text-orange-500' : 'text-blue-500'
+                          renewal.daysLeft <= 30 ? 'text-red-600' : renewal.daysLeft <= 60 ? 'text-orange-600' : 'text-blue-600'
                         }`}>
                           {renewal.daysLeft} days
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-300">{renewal.cost}</td>
+                      <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
                       <td className="px-4 py-4">
-                        <span className={`inline-flex px-3 py-1 rounded-full text-xs ${statusConfig.bg} ${statusConfig.color}`}>
+                        <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${statusConfig.bg} ${statusConfig.color}`}>
                           {statusConfig.label}
                         </span>
                       </td>
@@ -114,29 +114,29 @@ export function Renewals() {
         </div>
 
         {/* Recently Completed */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Recently Completed</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recently Completed</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">License</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Renewed Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Cost</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">New Expiry</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Renewed Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">New Expiry</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {recentRenewals.map((renewal, idx) => (
-                  <tr key={idx} className="hover:bg-gray-800/30">
-                    <td className="px-4 py-4 text-sm text-white font-medium">{renewal.contractor}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{renewal.license}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{renewal.state}</td>
-                    <td className="px-4 py-4 text-sm text-gray-300">{renewal.renewedDate}</td>
-                    <td className="px-4 py-4 text-sm text-gray-300">{renewal.cost}</td>
-                    <td className="px-4 py-4 text-sm text-green-400">{renewal.newExpiry}</td>
+                  <tr key={idx} className="hover:bg-gray-50">
+                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{renewal.renewedDate}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
+                    <td className="px-4 py-4 text-sm text-green-600 font-medium">{renewal.newExpiry}</td>
                   </tr>
                 ))}
               </tbody>

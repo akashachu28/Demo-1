@@ -29,10 +29,10 @@ export function RetainerLedger() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fff]">
-      <div className="border-b border-gray-800 bg-[#0E4665] px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
         <h1 className="text-2xl font-semibold text-white">Retainer Ledger</h1>
-        <p className="text-sm text-gray-400 mt-1">Track contractor retainer balances and transactions</p>
+        <p className="text-sm text-blue-100 mt-1">Track contractor retainer balances and transactions</p>
       </div>
 
       <div className="p-8 space-y-6">
@@ -41,55 +41,55 @@ export function RetainerLedger() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-2">
-                  <Icon className="w-5 h-5 text-blue-500" />
-                  <span className="text-xs text-green-400">{stat.trend}</span>
+                  <Icon className="w-5 h-5 text-blue-600" />
+                  <span className="text-xs text-green-600 font-medium">{stat.trend}</span>
                 </div>
-                <p className="text-3xl font-semibold text-white mb-1">{stat.value}</p>
-                <p className="text-sm text-gray-400">{stat.label}</p>
+                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                <p className="text-sm text-gray-600">{stat.label}</p>
               </div>
             );
           })}
         </div>
 
         {/* Recent Transactions */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Recent Transactions</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Transactions</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-gray-800">
+              <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Amount</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Balance</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Description</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Amount</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Balance</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Description</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-gray-100">
                 {retainerTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="hover:bg-gray-800/30">
-                    <td className="px-4 py-4 text-sm text-gray-400">{transaction.date}</td>
-                    <td className="px-4 py-4 text-sm text-white font-medium">{transaction.contractor}</td>
+                  <tr key={transaction.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-4 text-sm text-gray-600">{transaction.date}</td>
+                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">{transaction.contractor}</td>
                     <td className="px-4 py-4">
-                      <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs ${
+                      <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
                         transaction.type === 'deposit' 
-                          ? 'bg-green-900/30 text-green-500' 
-                          : 'bg-red-900/30 text-red-500'
+                          ? 'bg-green-100 text-green-600' 
+                          : 'bg-red-100 text-red-600'
                       }`}>
                         {transaction.type === 'deposit' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                         {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
                       </span>
                     </td>
                     <td className={`px-4 py-4 text-sm font-semibold ${
-                      transaction.type === 'deposit' ? 'text-green-400' : 'text-red-400'
+                      transaction.type === 'deposit' ? 'text-green-600' : 'text-red-600'
                     }`}>
                       {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toLocaleString()}
                     </td>
-                    <td className="px-4 py-4 text-sm text-white font-medium">${transaction.balance.toLocaleString()}</td>
-                    <td className="px-4 py-4 text-sm text-gray-400">{transaction.description}</td>
+                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">${transaction.balance.toLocaleString()}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600">{transaction.description}</td>
                   </tr>
                 ))}
               </tbody>
@@ -98,21 +98,21 @@ export function RetainerLedger() {
         </div>
 
         {/* Contractor Balances */}
-        <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Top Contractor Balances</h3>
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Contractor Balances</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {contractorBalances.map((account, idx) => (
-              <div key={idx} className="bg-[#0f1425] rounded-lg p-4 border border-gray-800">
+              <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <p className="font-medium text-white">{account.contractor}</p>
+                    <p className="font-medium text-gray-900">{account.contractor}</p>
                     <p className="text-xs text-gray-500 mt-1">Last: {account.lastActivity}</p>
                   </div>
-                  <span className="px-2 py-1 bg-green-900/30 text-green-500 text-xs rounded">Active</span>
+                  <span className="px-2 py-1 bg-green-100 text-green-600 text-xs rounded font-medium">Active</span>
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <DollarSign className="w-4 h-4 text-blue-500" />
-                  <p className="text-2xl font-semibold text-white">{account.balance.toLocaleString()}</p>
+                  <DollarSign className="w-4 h-4 text-blue-600" />
+                  <p className="text-2xl font-bold text-gray-900">{account.balance.toLocaleString()}</p>
                 </div>
               </div>
             ))}
