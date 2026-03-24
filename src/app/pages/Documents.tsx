@@ -1,5 +1,5 @@
 import { FileText, Upload, Download, Eye, CheckCircle, Clock, AlertCircle, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const documents = [
@@ -23,6 +23,20 @@ export function Documents() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  // Prevent body scrolling when modal is open
+  useEffect(() => {
+    if (showUploadModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showUploadModal]);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -50,7 +64,7 @@ export function Documents() {
       case "review":
         return { icon: Clock, color: "text-orange-600", bg: "bg-orange-100", label: "In Review" };
       case "pending":
-        return { icon: AlertCircle, color: "text-blue-600", bg: "bg-blue-100", label: "Pending" };
+        return { icon: AlertCircle, color: "text-[#36B0C9]", bg: "bg-blue-100", label: "Pending" };
       default:
         return { icon: FileText, color: "text-gray-600", bg: "bg-gray-100", label: "Unknown" };
     }
@@ -89,7 +103,7 @@ export function Documents() {
             return (
               <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-600" />
+                  <Icon className="w-5 h-5 text-[#36B0C9]" />
                   <p className="text-sm text-gray-600">{stat.label}</p>
                 </div>
                 <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
@@ -105,7 +119,7 @@ export function Documents() {
             {documentsByType.map((doc) => (
               <div key={doc.type} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
                 <div className="flex items-center gap-3 mb-3">
-                  <FileText className="w-5 h-5 text-blue-600" />
+                  <FileText className="w-5 h-5 text-[#36B0C9]" />
                   <p className="text-sm font-medium text-gray-900">{doc.type}</p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -148,7 +162,7 @@ export function Documents() {
                     <tr key={doc.id} className="hover:bg-gray-50">
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-blue-600" />
+                          <FileText className="w-4 h-4 text-[#36B0C9]" />
                           <span className="text-sm text-gray-900 font-medium">{doc.name}</span>
                         </div>
                       </td>
@@ -184,18 +198,27 @@ export function Documents() {
       {/* Upload Modal */}
       {showUploadModal && (
         <div 
-          className="fixed inset-0  flex items-center justify-center z-50"
+          className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
           onClick={() => setShowUploadModal(false)}
         >
           <div 
-            className="bg-white rounded-lg p-8 w-full max-w-sm mx-4 shadow-2xl"
+            className="bg-white rounded-lg p-8 w-full max-w-sm mx-4 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* X Close Button */}
+            <button
+              onClick={() => setShowUploadModal(false)}
+              className="absolute top-3 right-3 p-1 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+            </button>
+
             <div className="text-center">
               <h2 className="text-lg font-semibold text-gray-900 mb-6">Select Document</h2>
               
               {/* File Selection */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-blue-400 transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 hover:border-[#0E4665] transition-colors">
                 <input
                   type="file"
                   onChange={handleFileSelect}

@@ -6,19 +6,19 @@ interface DashboardCardProps {
 }
 
 const colorClasses = {
-  blue: "border-l-4 border-l-blue-500",
-  purple: "border-l-4 border-l-purple-500",
-  green: "border-l-4 border-l-green-500",
-  orange: "border-l-4 border-l-orange-500",
-  red: "border-l-4 border-l-red-500",
+  blue: "border-l-4 border-l-[#36B0C9]",
+  purple: "border-l-4 border-l-[#36B0C9]",
+  green: "border-l-4 border-l-[#36B0C9]",
+  orange: "border-l-4 border-l-[#36B0C9]",
+  red: "border-l-4 border-l-[#36B0C9]",
 };
 
 const valueColors = {
-  blue: "text-blue-600",
-  purple: "text-purple-600",
-  green: "text-green-600",
-  orange: "text-orange-600",
-  red: "text-red-600",
+  blue: "text-[#0E4665]",
+  purple: "text-[#0E4665]",
+  green: "text-[#0E4665]",
+  orange: "text-[#0E4665]",
+  red: "text-[#0E4665]",
 };
 
 export function DashboardCard({ title, value, subtitle, color }: DashboardCardProps) {

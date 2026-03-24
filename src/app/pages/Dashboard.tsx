@@ -6,9 +6,13 @@ import {
   UserPlus,
   UserX,
   Shield,
-  AlertCircle
+  AlertCircle,
+  User,
+  LogOut,
+  ChevronDown
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { MetricBar } from "../components/MetricBar";
 import { DashboardCard } from "../components/DashboardCard";
 import { CategoryCard } from "../components/CategoryCard";
@@ -18,6 +22,9 @@ import { checkHealth } from "../utils/api";
 
 export function Dashboard() {
   const [healthStatus, setHealthStatus] = useState<string>("checking");
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, logout } = useAuth();
 
   // Check API health on component mount
   useEffect(() => {
@@ -34,6 +41,23 @@ export function Dashboard() {
 
     performHealthCheck();
   }, []);
+
+  // Handle click outside dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowProfileDropdown(false);
+      }
+    };
+
+    if (showProfileDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showProfileDropdown]);
 
   const metrics = [
     { label: "STATES COMPLIANT", value: "33/36", color: "blue" as const },
@@ -147,14 +171,54 @@ export function Dashboard() {
             <h1 className="text-2xl font-semibold text-white">National Compliance Dashboard</h1>
             <p className="text-sm text-blue-100 mt-1">Every leader's home screen — all brands, all states, complete visibility</p>
           </div>
-          <div className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full ${
-              healthStatus === "healthy" ? "bg-green-400" : 
-              healthStatus === "unhealthy" ? "bg-red-400" : "bg-yellow-400"
-            }`}></div>
-            <span className="text-sm text-blue-100">
-              API {healthStatus === "healthy" ? "Connected" : healthStatus === "unhealthy" ? "Disconnected" : "Checking..."}
-            </span>
+          
+          {/* Profile Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+              className="flex items-center gap-2 rounded-lg px-3 transition-colors"
+            >
+              <div className="w-10 h-10 bg-[#36b0c9] rounded-full flex items-center justify-center">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <ChevronDown className={`w-4 h-4 text-white transition-transform ${showProfileDropdown ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Dropdown Menu */}
+            {showProfileDropdown && (
+              <div className="absolute right-0 mt-2 w-50 bg-white rounded-lg shadow-xl border border-gray-200  z-50">
+                {/* User Info */}
+                <div className="px-4 py-3 border-b border-gray-200">
+                  <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
+                  <p className="text-xs text-gray-500 mt-1">{user?.email}</p>
+                </div>
+
+                {/* Menu Items */}
+                <div className="py-1">
+                  <button
+                    onClick={() => {
+                      setShowProfileDropdown(false);
+                      // Add profile navigation here if needed
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    <User className="w-4 h-4 text-gray-500" />
+                    <span>Profile</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setShowProfileDropdown(false);
+                      logout();
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

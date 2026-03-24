@@ -9,11 +9,11 @@ interface MetricBarProps {
 }
 
 const valueColors = {
-  blue: "text-blue-600",
-  purple: "text-purple-600",
-  green: "text-green-600",
-  orange: "text-orange-600",
-  red: "text-red-600",
+  blue: "text-[#36B0C9]",
+  purple: "text-[#36B0C9]",
+  green: "text-[#36B0C9]",
+  orange: "text-[#36B0C9]",
+  red: "text-[#36B0C9]",
 };
 
 export function MetricBar({ metrics }: MetricBarProps) {

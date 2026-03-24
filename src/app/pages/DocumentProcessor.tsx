@@ -51,7 +51,7 @@ function DocumentVisualization({ data }: { data: DocumentData }) {
           </div>
           <div className="flex items-center gap-1">
             <span className="text-gray-500">Fields Extracted:</span>
-            <span className="font-medium text-blue-600">{key_value_pairs.length}</span>
+            <span className="font-medium text-[#0E4665]">{key_value_pairs.length}</span>
           </div>
         </div>
       </div>
@@ -383,7 +383,7 @@ export function DocumentProcessor() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate('/documents')}
-            className="p-2 hover:bg-blue-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-[#012542] rounded-lg transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
@@ -395,16 +395,16 @@ export function DocumentProcessor() {
       </div>
 
       <div className="p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[calc(100vh-200px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-100vh">
           {/* Left Side - File Preview */}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Document Preview</h2>
             
             <div className="h-full flex flex-col">
               {/* File Info */}
               <div className="mb-4 p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-5 h-5 text-blue-600" />
+                  <FileText className="w-5 h-5 text-[#0E4665]" />
                   <div className="flex-1">
                     <h3 className="text-sm font-medium text-gray-900">{state.fileName}</h3>
                     <div className="text-xs text-gray-600 mt-1 space-x-4">
@@ -417,7 +417,7 @@ export function DocumentProcessor() {
               </div>
 
               {/* Document Viewer */}
-              <div className="flex-1 border border-gray-200 rounded-lg">
+              <div className="flex-1 border border-gray-300 rounded-lg overflow-hidden">
                 {fileUrl ? (
                   <div className="h-full w-full">
                     <DocumentPreview 
@@ -441,7 +441,7 @@ export function DocumentProcessor() {
           </div>
 
           {/* Right Side - Processing/Results */}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 flex flex-col">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">
               {isProcessing ? 'Processing Document...' : error ? 'Processing Error' : 'Extraction Results'}
             </h2>
@@ -450,7 +450,7 @@ export function DocumentProcessor() {
               {isProcessing && (
                 <div className="flex-1 flex flex-col items-center justify-center">
                   <div className="relative">
-                    <Loader2 className="w-16 h-16 text-blue-600 animate-spin" />
+                    <Loader2 className="w-16 h-16 text-[#0E4665] animate-spin" />
                     <div className="absolute inset-0 w-16 h-16 border-4 border-blue-200 rounded-full animate-pulse"></div>
                   </div>
                   <p className="text-lg font-medium text-gray-700 mt-6 mb-2">Analyzing Document</p>
@@ -461,7 +461,7 @@ export function DocumentProcessor() {
                   {/* Processing steps animation */}
                   <div className="mt-8 space-y-3 w-full max-w-md">
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
+                      <div className="w-2 h-2 bg-[#0E4665] rounded-full animate-pulse"></div>
                       <span className="text-sm text-gray-600">Reading document structure...</span>
                     </div>
                     <div className="flex items-center gap-3">
@@ -485,7 +485,7 @@ export function DocumentProcessor() {
                   <p className="text-sm text-gray-600 text-center max-w-md mb-4">{error}</p>
                   <button
                     onClick={() => navigate('/documents')}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-[#0E4665] text-white rounded-lg hover:bg-[#012542] transition-colors"
                   >
                     Back to Documents
                   </button>

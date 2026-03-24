@@ -6,7 +6,7 @@ export function ComplianceByBrand() {
   ];
 
   return (
-    <div className="bg-[#1e2442] rounded-lg border border-gray-800 p-6">
+    <div className="bg-[#003057] rounded-lg border border-gray-800 p-6">
       <h3 className="text-lg font-semibold text-white mb-4">COMPLIANCE BY BRAND</h3>
       <div className="space-y-4">
         {brands.map((brand) => (
