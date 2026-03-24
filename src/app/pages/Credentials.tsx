@@ -1,4 +1,5 @@
 import { Shield, CheckCircle, Clock, AlertTriangle, FileCheck } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const credentials = [
   { id: "1", contractor: "John Smith", type: "Professional License", issuer: "CA State Board", status: "verified", issued: "Jan 15, 2024", expires: "Jan 15, 2027", verifiedDate: "Jan 20, 2024" },
@@ -42,10 +43,10 @@ export function Credentials() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Credentials</h1>
-        <p className="text-sm text-blue-100 mt-1">Manage and verify contractor credentials</p>
-      </div>
+      <PageHeader 
+        title="Credentials"
+        subtitle="Manage and verify contractor credentials"
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

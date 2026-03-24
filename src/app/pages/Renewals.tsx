@@ -1,4 +1,5 @@
 import { Calendar, AlertTriangle, Clock, CheckCircle, DollarSign } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const upcomingRenewals = [
   { id: "1", contractor: "John Smith", license: "CA-12345", state: "California", expiryDate: "Apr 15, 2026", daysLeft: 23, cost: "$450", status: "pending" },
@@ -37,10 +38,10 @@ export function Renewals() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">License Renewals</h1>
-        <p className="text-sm text-blue-100 mt-1">Track and manage contractor license renewals</p>
-      </div>
+      <PageHeader 
+        title="License Renewals"
+        subtitle="Track and manage contractor license renewals"
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

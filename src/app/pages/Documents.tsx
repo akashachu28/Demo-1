@@ -1,6 +1,7 @@
 import { FileText, Upload, Download, Eye, CheckCircle, Clock, AlertCircle, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { PageHeader } from "../components/PageHeader";
 
 const documents = [
   { id: "1", name: "License_CA_JohnSmith.pdf", contractor: "John Smith", type: "License", size: "2.4 MB", uploaded: "Mar 20, 2026", status: "approved" },
@@ -79,12 +80,10 @@ export function Documents() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-white">Documents</h1>
-            <p className="text-sm text-blue-100 mt-1">Manage contractor documentation</p>
-          </div>
+      <PageHeader 
+        title="Documents"
+        subtitle="Manage contractor documentation"
+        action={
           <button 
             onClick={() => setShowUploadModal(true)}
             className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
@@ -92,8 +91,8 @@ export function Documents() {
             <Upload className="w-4 h-4" />
             <span>Upload Document</span>
           </button>
-        </div>
-      </div>
+        }
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

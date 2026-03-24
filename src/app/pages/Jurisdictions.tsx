@@ -1,4 +1,5 @@
 import { MapPin, FileText, Users, DollarSign } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const jurisdictions = [
   { state: "California", counties: 58, contractors: 87, licenses: 142, regulations: "High", avgCost: "$485" },
@@ -47,10 +48,10 @@ export function Jurisdictions() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Jurisdictions</h1>
-        <p className="text-sm text-blue-100 mt-1">State and county compliance requirements</p>
-      </div>
+      <PageHeader 
+        title="Jurisdictions"
+        subtitle="State and county compliance requirements"
+      />
 
       <div className="p-8 space-y-6">
         {/* Overview Stats */}

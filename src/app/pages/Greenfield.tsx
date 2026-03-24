@@ -1,4 +1,5 @@
 import { TrendingUp, MapPin, Users, DollarSign, Target } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const expansionOpportunities = [
   { state: "Nevada", score: 92, contractors: 0, market: "$45M", difficulty: "Low", timeToMarket: "3 months" },
@@ -39,10 +40,10 @@ export function Greenfield() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Greenfield Expansion</h1>
-        <p className="text-sm text-blue-100 mt-1">New market opportunities and expansion analysis</p>
-      </div>
+      <PageHeader 
+        title="Greenfield Expansion"
+        subtitle="New market opportunities and expansion analysis"
+      />
 
       <div className="p-8 space-y-6">
         {/* Market Metrics */}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const contractors = [
   { id: "1", name: "John Smith", license: "CA-12345", state: "California", status: "active", compliance: 98, expires: "Dec 15, 2026", phone: "(555) 123-4567" },
@@ -47,18 +48,16 @@ export function Contractors() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-white">Contractors</h1>
-            <p className="text-sm text-blue-100 mt-1">Manage all contractor profiles and licenses</p>
-          </div>
+      <PageHeader 
+        title="Contractors"
+        subtitle="Manage all contractor profiles and licenses"
+        action={
           <button className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors">
             <UserPlus className="w-4 h-4" />
             <span>Add Contractor</span>
           </button>
-        </div>
-      </div>
+        }
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

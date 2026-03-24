@@ -1,4 +1,5 @@
 import { MapPin, CheckCircle, XCircle, AlertTriangle } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const stateEligibility = [
   { state: "California", status: "eligible", contractors: 87, requirements: 12, compliant: 98 },
@@ -37,10 +38,10 @@ export function Eligibility() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Eligibility</h1>
-        <p className="text-sm text-blue-100 mt-1">State-by-state contractor eligibility status</p>
-      </div>
+      <PageHeader 
+        title="Eligibility"
+        subtitle="State-by-state contractor eligibility status"
+      />
 
       <div className="p-8 space-y-6">
         {/* Overview Stats */}

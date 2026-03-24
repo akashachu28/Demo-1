@@ -1,10 +1,12 @@
+import { PageHeader } from "../components/PageHeader";
+
 export function Licenses() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Executive Reports</h1>
-        <p className="text-sm text-blue-100 mt-1">Comprehensive licensing and compliance reports</p>
-      </div>
+      <PageHeader 
+        title="Executive Reports"
+        subtitle="Comprehensive licensing and compliance reports"
+      />
 
       <div className="p-8">
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">

@@ -1,4 +1,5 @@
 import { Users, Clock, CheckCircle, AlertCircle, FileText } from "lucide-react";
+import { PageHeader } from "../components/PageHeader";
 
 const onboardingQueue = [
   { id: "1", name: "Robert Chen", state: "California", stage: "Document Review", progress: 75, submitted: "2 days ago", assignee: "Sarah M." },
@@ -24,10 +25,10 @@ export function Onboarding() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Onboarding</h1>
-        <p className="text-sm text-blue-100 mt-1">Track contractor onboarding progress and status</p>
-      </div>
+      <PageHeader 
+        title="Onboarding"
+        subtitle="Track contractor onboarding progress and status"
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

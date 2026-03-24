@@ -1,5 +1,6 @@
 import { Activity, User, FileText, Shield, Clock, Filter } from "lucide-react";
 import { useState } from "react";
+import { PageHeader } from "../components/PageHeader";
 
 const auditLogs = [
   { id: "1", action: "License Verified", user: "Sarah Martinez", target: "John Smith - CA-12345", timestamp: "Mar 23, 2026 14:32:15", type: "verification", ip: "192.168.1.100" },
@@ -64,10 +65,10 @@ export function AuditTrail() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <h1 className="text-2xl font-semibold text-white">Audit Trail</h1>
-        <p className="text-sm text-blue-100 mt-1">Complete system activity log and compliance tracking</p>
-      </div>
+      <PageHeader 
+        title="Audit Trail"
+        subtitle="Complete system activity log and compliance tracking"
+      />
 
       <div className="p-8 space-y-6">
         {/* Stats */}

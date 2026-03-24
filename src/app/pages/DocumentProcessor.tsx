@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { extractDocument } from "../utils/api";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+import { PageHeader } from "../components/PageHeader";
 
 interface ProcessorState {
   file: File;
@@ -378,21 +379,19 @@ export function DocumentProcessor() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="border-b border-gray-200 bg-[#0E4665] px-8 py-4">
-        <div className="flex items-center gap-4">
+      <PageHeader 
+        title="Document Processing"
+        subtitle="Processing and extracting document information"
+        action={
           <button
             onClick={() => navigate('/documents')}
-            className="p-2 hover:bg-[#012542] rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Documents</span>
           </button>
-          <div>
-            <h1 className="text-2xl font-semibold text-white">Document Processing</h1>
-            <p className="text-sm text-blue-100 mt-1">Processing and extracting document information</p>
-          </div>
-        </div>
-      </div>
+        }
+      />
 
       <div className="p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-100vh">
