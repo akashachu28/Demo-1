@@ -12,9 +12,7 @@ import {
   ClipboardList,
   CheckSquare,
   TrendingUp,
-  LogOut,
-  User,
-  X,
+  Settings,
   SidebarOpen,
   SidebarClose
 } from "lucide-react";
@@ -37,7 +35,7 @@ interface SidebarSection {
 }
 
 export function Layout() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const sidebarSections: SidebarSection[] = [
@@ -72,6 +70,12 @@ export function Layout() {
       title: "REPORTING",
       items: [
         { path: "/greenfield", label: "Greenfield", icon: TrendingUp },
+      ],
+    },
+    {
+      title: "SYSTEM CONFIG",
+      items: [
+        { path: "/system-rules", label: "System Rules", icon: Settings },
       ],
     },
   ];

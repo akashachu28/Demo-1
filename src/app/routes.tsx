@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Dashboard } from "./pages/Dashboard";
 import { Licenses } from "./pages/Licenses";
 import { Contractors } from "./pages/Contractors";
+import { ContractorProfile } from "./pages/ContractorProfile";
 import { Onboarding } from "./pages/Onboarding";
 import { Eligibility } from "./pages/Eligibility";
 import { RetainerLedger } from "./pages/RetainerLedger";
@@ -14,6 +15,7 @@ import { Documents } from "./pages/Documents";
 import { DocumentProcessor } from "./pages/DocumentProcessor";
 import { AuditTrail } from "./pages/AuditTrail";
 import { Greenfield } from "./pages/Greenfield";
+import { SystemRules } from "./pages/SystemRules";
 import { NotFound } from "./pages/NotFound";
 
 // Protected Layout Component
@@ -33,6 +35,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Dashboard },
       { path: "reports", Component: Licenses },
       { path: "contractors", Component: Contractors },
+      { path: "contractors/:id", Component: ContractorProfile },
       { path: "onboarding", Component: Onboarding },
       { path: "eligibility", Component: Eligibility },
       { path: "retainer", Component: RetainerLedger },
@@ -43,6 +46,7 @@ export const router = createBrowserRouter([
       { path: "documents/processor", Component: DocumentProcessor },
       { path: "audit", Component: AuditTrail },
       { path: "greenfield", Component: Greenfield },
+      { path: "system-rules", Component: SystemRules },
       { path: "*", Component: NotFound },
     ],
   },

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock } from "lucide-react";
+import { useNavigate } from "react-router";
+import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock, Eye, Sparkles, Zap, Bell, RefreshCw, FileText, Ban, ChevronRight } from "lucide-react";
 import { PageHeader } from "../components/PageHeader";
 
 const contractors = [
@@ -16,6 +17,8 @@ const contractors = [
 export function Contractors() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const filteredContractors = contractors.filter((contractor) => {
     const matchesSearch = contractor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -47,10 +50,10 @@ export function Contractors() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-full bg-gray-50">
       <PageHeader 
-        title="Contractors"
-        subtitle="Manage all contractor profiles and licenses"
+        title="Contractor Master Registry"
+        subtitle="System of Record - 24,853 Total Contractors"
         action={
           <button className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors">
             <UserPlus className="w-4 h-4" />
@@ -61,14 +64,14 @@ export function Contractors() {
 
       <div className="p-8 space-y-6">
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {stats.map((stat) => (
             <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
               <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
               <p className="text-sm text-gray-600">{stat.label} Contractors</p>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Filters */}
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 hover:shadow-md transition-shadow">
@@ -109,11 +112,11 @@ export function Contractors() {
             <table className="w-full">
               <thead className="border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">License</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">State</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Contractor</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Primary Jurisdiction</th>
+                  {/* <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">State</th> */}
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Compliance</th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Trust Score</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Expires</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -131,7 +134,7 @@ export function Contractors() {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">{contractor.license}</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{contractor.state}</td>
+                      {/* <td className="px-6 py-4 text-sm text-gray-700">{contractor.state}</td> */}
                       <td className="px-6 py-4">
                         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
                           <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
@@ -153,9 +156,81 @@ export function Contractors() {
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">{contractor.expires}</td>
                       <td className="px-6 py-4">
-                        <button className="p-1 hover:bg-gray-100 rounded">
-                          <MoreVertical className="w-5 h-5 text-gray-500" />
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                            <Sparkles className="w-4 h-4" />
+                            <span>AI Insight</span>
+                          </button>
+                          <div className="relative">
+                            <button 
+                              onClick={() => setOpenDropdown(openDropdown === contractor.id ? null : contractor.id)}
+                              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                              <Eye className="w-4 h-4" />
+                              <span>View</span>
+                              <MoreVertical className="w-4 h-4" />
+                            </button>
+                            
+                            {openDropdown === contractor.id && (
+                              <>
+                                <div 
+                                  className="fixed inset-0 z-10" 
+                                  onClick={() => setOpenDropdown(null)}
+                                />
+                                <div className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl z-20 overflow-hidden">
+                                  <button 
+                                    onClick={() => navigate(`/contractors/${contractor.id}`)}
+                                    className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left"
+                                  >
+                                    <Eye className="w-5 h-5" />
+                                    <span className="text-sm font-medium">View Profile</span>
+                                  </button>
+                                  
+                                  <div className="border-t border-gray-700" />
+                                  
+                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                    <Zap className="w-5 h-5" />
+                                    <span className="text-sm font-medium">Run AI Compliance Check</span>
+                                  </button>
+                                  
+                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-gray-700 transition-colors text-left">
+                                    <Sparkles className="w-5 h-5" />
+                                    <span className="text-sm font-medium">Explain Status (AI)</span>
+                                  </button>
+                                  
+                                  <div className="border-t border-gray-700" />
+                                  
+                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                    <Bell className="w-5 h-5" />
+                                    <span className="text-sm font-medium">Send Reminder</span>
+                                  </button>
+                                  
+                                  <button className="w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                    <div className="flex items-center gap-3">
+                                      <RefreshCw className="w-5 h-5" />
+                                      <span className="text-sm font-medium">Recheck Eligibility</span>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4" />
+                                  </button>
+                                  
+                                  <div className="border-t border-gray-700" />
+                                  
+                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                    <FileText className="w-5 h-5" />
+                                    <span className="text-sm font-medium">View Audit Logs</span>
+                                  </button>
+                                  
+                                  <div className="border-t border-gray-700" />
+                                  
+                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-gray-700 transition-colors text-left">
+                                    <Ban className="w-5 h-5" />
+                                    <span className="text-sm font-medium">Block Contractor</span>
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   );

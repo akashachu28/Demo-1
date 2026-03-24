@@ -1,43 +1,36 @@
-import { LucideIcon, TrendingUp, TrendingDown } from "lucide-react";
+import { Circle } from "lucide-react";
 
 interface StatCardProps {
   title: string;
   value: string;
-  change: string;
-  trend: "up" | "down";
-  icon: LucideIcon;
-  color: "blue" | "green" | "orange" | "red";
+  change?: string | null;
+  positive?: boolean | null;
+  icons?: boolean;
+  highlight?: boolean;
 }
 
-const colorClasses = {
-  blue: "bg-blue-100 text-blue-600",
-  green: "bg-green-100 text-green-600",
-  orange: "bg-orange-100 text-orange-600",
-  red: "bg-red-100 text-red-600",
-};
-
-export function StatCard({ title, value, change, trend, icon: Icon, color }: StatCardProps) {
-  const isPositive = trend === "up";
-
+export function StatCard({ title, value, change, positive, icons, highlight }: StatCardProps) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-gray-600 text-sm">{title}</p>
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${colorClasses[color]}`}>
-          <Icon className="w-5 h-5" />
-        </div>
-      </div>
-      <p className="text-3xl font-semibold text-gray-900">{value}</p>
-      <div className="flex items-center gap-1 mt-2">
-        {isPositive ? (
-          <TrendingUp className="w-4 h-4 text-green-600" />
-        ) : (
-          <TrendingDown className="w-4 h-4 text-red-600" />
+    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+        {icons && (
+          <div className="flex gap-1">
+            <Circle className="w-4 h-4 text-blue-500 fill-blue-500" />
+            <Circle className="w-4 h-4 text-blue-400 fill-blue-400" />
+            <Circle className="w-4 h-4 text-gray-300 fill-gray-300" />
+          </div>
         )}
-        <span className={`text-sm ${isPositive ? "text-green-600" : "text-red-600"}`}>
-          {change}
+      </div>
+      <div className="flex items-end gap-2">
+        <span className={`text-3xl font-bold ${highlight ? 'text-orange-500' : 'text-gray-900'}`}>
+          {value}
         </span>
-        <span className="text-sm text-gray-500 ml-1">vs last month</span>
+        {change && (
+          <span className={`text-sm font-medium mb-1 ${positive ? 'text-green-600' : 'text-red-600'}`}>
+            {change}
+          </span>
+        )}
       </div>
     </div>
   );

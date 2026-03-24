@@ -54,17 +54,6 @@ export const apiClient = {
   }
 };
 
-// Health check function
-export const checkHealth = async () => {
-  try {
-    const response = await apiClient.get('/health');
-    return response;
-  } catch (error) {
-    console.error('Health check failed:', error);
-    throw error;
-  }
-};
-
 // Extract document function
 export const extractDocument = async (file: File) => {
   try {
