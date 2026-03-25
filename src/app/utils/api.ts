@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API || 'http://106.51.226.42:9010';
+// Use proxy API for production, direct API for development
+const API_BASE_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API || 'http://106.51.226.42:9010');
 
 export const apiClient = {
   async get(endpoint: string) {
@@ -38,7 +39,10 @@ export const apiClient = {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      // Use proxy API in production, direct API in development
+      const url = import.meta.env.PROD ? `/api${endpoint}` : `${API_BASE_URL}${endpoint}`;
+      
+      const response = await fetch(url, {
         method: 'POST',
         body: formData,
       });
