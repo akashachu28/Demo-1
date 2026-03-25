@@ -457,40 +457,67 @@ export function ContractorRegistration() {
       <div className="max-w-6xl mx-auto p-8">
         {/* Progress Tabs */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+          {/* Progress Bar */}
+          <div className="relative mb-6">
+            <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200"></div>
+            <div 
+              className="absolute top-4 left-0 h-0.5 bg-[#36b0c9] transition-all duration-300"
+              style={{ width: `${(completedTabs.length / tabs.length) * 100}%` }}
+            ></div>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className="flex items-center justify-between">
             {tabs.map((tab, index) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               const isCompleted = completedTabs.includes(tab.id);
               
               return (
-                <div key={tab.id} className="flex items-center flex-1">
+                <div key={tab.id} className="flex flex-col items-center relative">
+                  {/* Step Circle */}
                   <button
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                    className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
                       isActive 
-                        ? "bg-[#36b0c9] text-gray-200 shadow-sm" 
+                        ? "bg-[#36b0c9] text-white shadow-lg scale-110" 
                         : isCompleted
-                        ? "bg-green-100 text-green-700"
-                        : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200"
+                        ? "bg-green-500 text-white shadow-md"
+                        : "bg-white text-gray-400 border-2 border-gray-200 hover:border-[#36b0c9] hover:text-[#36b0c9]"
                     }`}
                   >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      isActive ? "bg-[#0E4665]" : isCompleted ? "bg-green-600" : "bg-gray-200"
-                    }`}>
-                      {isCompleted ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : (
-                        <Icon className="w-4 h-4" />
-                      )}
-                    </div>
-                    <div className="text-left hidden lg:block">
-                      <p className="text-xs opacity-75">Step {index + 1}</p>
-                      <p className="text-sm font-medium">{tab.label}</p>
-                    </div>
+                    {isCompleted && !isActive ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      <Icon className="w-4 h-4" />
+                    )}
                   </button>
-                  {index < tabs.length - 1 && (
-                    <ChevronRight className="w-5 h-5 text-gray-600 mx-2 flex-shrink-0" />
+
+                  {/* Step Label */}
+                  <div className="mt-3 text-center">
+                    <p className={`text-xs font-medium transition-colors ${
+                      isActive 
+                        ? "text-[#36b0c9]" 
+                        : isCompleted 
+                        ? "text-green-600" 
+                        : "text-gray-500"
+                    }`}>
+                      Step {index + 1}
+                    </p>
+                    <p className={`text-sm font-medium mt-1 transition-colors ${
+                      isActive 
+                        ? "text-gray-900" 
+                        : isCompleted 
+                        ? "text-gray-700" 
+                        : "text-gray-500"
+                    }`}>
+                      {tab.label}
+                    </p>
+                  </div>
+
+                  {/* Active Step Indicator */}
+                  {isActive && (
+                    <div className="absolute -bottom-2 w-2 h-2 bg-[#36b0c9] rounded-full animate-pulse"></div>
                   )}
                 </div>
               );

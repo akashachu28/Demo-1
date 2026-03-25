@@ -239,7 +239,7 @@ export function Login() {
             </form>
 
             {/* Demo Credentials */}
-            <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            {/* <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <h3 className="text-sm font-semibold text-blue-800 mb-2">Demo Credentials</h3>
               <div className="text-xs text-blue-700 space-y-1">
                 <p><span className="font-medium">Admin:</span> admin / admin@123</p>
@@ -247,7 +247,7 @@ export function Login() {
                 <p><span className="font-medium">Contractor:</span> contractor / contractor@123</p>
                 <p><span className="font-medium">Manager:</span> manager / manager@123</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         )}
