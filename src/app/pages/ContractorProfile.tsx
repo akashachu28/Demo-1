@@ -164,19 +164,14 @@ export function ContractorProfile() {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <h1 className="text-2xl font-bold text-gray-900">{contractor.name}</h1>
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
-                    {contractor.status}
-                  </span>
+                  
                 </div>
                 <p className="text-gray-600">{contractor.company}</p>
                 <p className="text-sm text-gray-500">{contractor.type} • {contractor.license}</p>
               </div>
             </div>
             <div className="flex gap-2">
-              <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                <Sparkles className="w-4 h-4" />
-                <span>Run AI Compliance Check</span>
-              </button>
+              
               <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
                 <Download className="w-4 h-4" />
                 <span>Download Report</span>
@@ -224,18 +219,7 @@ export function ContractorProfile() {
           </div>
 
           <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-            <div className="flex items-center gap-6">
-              <div>
-                <p className="text-sm text-gray-600">Trust Score</p>
-                <p className="text-2xl font-bold text-green-600">{contractor.trustScore} / 100</p>
-                <p className="text-xs text-gray-500">Excellent Standing</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">AI Risk Score</p>
-                <p className="text-2xl font-bold text-orange-600">{contractor.aiRiskScore} / 100</p>
-                <p className="text-xs text-gray-500">Medium Risk</p>
-              </div>
-            </div>
+            
             <p className="text-xs text-gray-500">
               Last AI Analysis: {contractor.lastAnalysis} • Profile Created: {contractor.profileCreated} • Last Updated: {contractor.lastUpdate}
             </p>
@@ -247,7 +231,7 @@ export function ContractorProfile() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-orange-600" />
-              <h2 className="text-lg font-semibold text-gray-900">AI Compliance Summary</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Compliance Summary</h2>
               <span className="text-sm text-gray-500">Generated 2 hours ago</span>
             </div>
           </div>
@@ -282,10 +266,7 @@ export function ContractorProfile() {
               <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors">
                 Review CA Requirements
               </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-1">
-                <Sparkles className="w-4 h-4" />
-                Explain AI Reasoning
-              </button>
+              
             </div>
           </div>
           <p className="text-xs text-gray-500 mt-2">Powered by Compliance AI Engine v1.1</p>
