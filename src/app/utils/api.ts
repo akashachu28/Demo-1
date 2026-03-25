@@ -42,15 +42,25 @@ export const apiClient = {
       // Use proxy API in production, direct API in development
       const url = import.meta.env.PROD ? `/api${endpoint}` : `${API_BASE_URL}${endpoint}`;
       
+      console.log('Uploading file to:', url);
+      console.log('File details:', { name: file.name, size: file.size, type: file.type });
+      
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
       });
 
+      console.log('Upload response status:', response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('Upload error response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
-      return await response.json();
+      
+      const result = await response.json();
+      console.log('Upload successful');
+      return result;
     } catch (error) {
       console.error('API file upload error:', error);
       throw error;
