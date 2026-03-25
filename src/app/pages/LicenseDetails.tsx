@@ -132,16 +132,6 @@ export function LicenseDetail() {
 
         subtitle={`License #${license.number}`}
 
-        action={
-<Link to="/licenses">
-<Button variant="outline" className="gap-2">
-<ArrowLeft className="w-4 h-4" />
-
-              Back to Licenses
-</Button>
-</Link>
-
-        }
 
       />
  

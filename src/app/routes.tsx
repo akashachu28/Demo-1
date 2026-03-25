@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AccessControl } from "./components/AccessControl";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
+import { Tasks } from "./pages/Tasks";
 import { Licenses } from "./pages/Licenses";
 import { LicenseDetail } from "./pages/LicenseDetails";
 import { Contractors } from "./pages/Contractors";
@@ -47,6 +48,14 @@ export const router = createBrowserRouter([
         element: (
           <AccessControl requiredAccess={ACCESS_LEVELS.DASHBOARD}>
             <Dashboard />
+          </AccessControl>
+        )
+      },
+      { 
+        path: "tasks", 
+        element: (
+          <AccessControl requiredAccess={ACCESS_LEVELS.DASHBOARD}>
+            <Tasks />
           </AccessControl>
         )
       },

@@ -119,7 +119,7 @@ export function Contractors() {
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Primary Jurisdiction</th>
                   {/* <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">State</th> */}
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Trust Score</th>
+                  {/* <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Trust Score</th> */}
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Expires</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -146,14 +146,7 @@ export function Contractors() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-gray-200 rounded-full h-2 w-20">
-                            <div
-                              className={`h-2 rounded-full ${
-                                contractor.compliance >= 95 ? 'bg-green-500' : contractor.compliance >= 85 ? 'bg-orange-500' : 'bg-red-500'
-                              }`}
-                              style={{ width: `${contractor.compliance}%` }}
-                            />
-                          </div>
+                          
                           <span className="text-sm text-gray-900 font-medium">{contractor.compliance}%</span>
                         </div>
                       </td>
@@ -166,7 +159,7 @@ export function Contractors() {
                                 onClick={() => {
                                   navigate('/contractors/dummy-registration');
                                 }}
-                                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
+                                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors"
                               >
                                 <SearchCheck className="w-4 h-4" />
                                 <span>Review</span>
@@ -176,72 +169,15 @@ export function Contractors() {
                           ) : (
                             <div className="relative">
                               <button 
-                                onClick={() => setOpenDropdown(openDropdown === contractor.id ? null : contractor.id)}
+                              onClick={() => navigate(`/contractors/${contractor.id}`)}
                                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
                               >
                                 <Eye className="w-4 h-4" />
                                 <span>View</span>
-                                <MoreVertical className="w-4 h-4" />
+                                {/* <MoreVertical className="w-4 h-4" /> */}
                               </button>
                               
-                              {openDropdown === contractor.id && (
-                                <>
-                                  <div 
-                                    className="fixed inset-0 z-10" 
-                                    onClick={() => setOpenDropdown(null)}
-                                  />
-                                  <div className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl z-20 overflow-hidden">
-                                    <button 
-                                      onClick={() => navigate(`/contractors/${contractor.id}`)}
-                                      className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left"
-                                    >
-                                      <Eye className="w-5 h-5" />
-                                      <span className="text-sm font-medium">View Profile</span>
-                                    </button>
-                                    
-                                    <div className="border-t border-gray-700" />
-                                    
-                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                      <Zap className="w-5 h-5" />
-                                      <span className="text-sm font-medium">Run AI Compliance Check</span>
-                                    </button>
-                                    
-                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-gray-700 transition-colors text-left">
-                                      <Sparkles className="w-5 h-5" />
-                                      <span className="text-sm font-medium">Explain Status (AI)</span>
-                                    </button>
-                                    
-                                    <div className="border-t border-gray-700" />
-                                    
-                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                      <Bell className="w-5 h-5" />
-                                      <span className="text-sm font-medium">Send Reminder</span>
-                                    </button>
-                                    
-                                    <button className="w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                      <div className="flex items-center gap-3">
-                                        <RefreshCw className="w-5 h-5" />
-                                        <span className="text-sm font-medium">Recheck Eligibility</span>
-                                      </div>
-                                      <ChevronRight className="w-4 h-4" />
-                                    </button>
-                                    
-                                    <div className="border-t border-gray-700" />
-                                    
-                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                      <FileText className="w-5 h-5" />
-                                      <span className="text-sm font-medium">View Audit Logs</span>
-                                    </button>
-                                    
-                                    <div className="border-t border-gray-700" />
-                                    
-                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-gray-700 transition-colors text-left">
-                                      <Ban className="w-5 h-5" />
-                                      <span className="text-sm font-medium">Block Contractor</span>
-                                    </button>
-                                  </div>
-                                </>
-                              )}
+                              
                             </div>
                           )}
                         </div>

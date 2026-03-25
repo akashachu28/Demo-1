@@ -15,7 +15,8 @@ import {
   Settings,
   SidebarOpen,
   SidebarClose,
-  ChevronDown
+  ChevronDown,
+  ListTodo
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
@@ -57,9 +58,20 @@ export function Layout() {
 
   const allSidebarSections: SidebarSection[] = [
     {
-      title: "LICENSES",
+      title: "",
       items: [
-        { path: "/", label: "Compliance Map", icon: BarChart3, end: true, accessLevel: ACCESS_LEVELS.DASHBOARD },
+        { path: "/", label: "Dashboard", icon: BarChart3, end: true, accessLevel: ACCESS_LEVELS.DASHBOARD },
+      ],
+    },
+    {
+      title: "",
+      items: [
+        { path: "/tasks", label: "Tasks", icon: ListTodo, accessLevel: ACCESS_LEVELS.DASHBOARD },
+      ],
+    },
+    {
+      title: "",
+      items: [
         { path: "/reports", label: "Licenses", icon: FileText, accessLevel: ACCESS_LEVELS.EXECUTIVE_REPORTS },
       ],
     },
@@ -161,10 +173,11 @@ export function Layout() {
         </div>
 
         {/* Navigation */}
+        {/* Navigation */}
         <nav className="py-4 overflow-y-auto flex-1 scrollbar-hide">
           {sidebarSections.map((section, idx) => (
-            <div key={section.title} className={idx > 0 ? "mt-6" : ""}>
-              {!isCollapsed && (
+            <div key={section.title || `section-${idx}`} className={idx > 0 ? "mt-" : ""}>
+              {!isCollapsed && section.title && (
                 <button
                   onClick={() => toggleSection(section.title)}
                   className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-white  transition-colors"
@@ -177,8 +190,8 @@ export function Layout() {
                   />
                 </button>
               )}
-              {(!isCollapsed && expandedSections[section.title]) || isCollapsed ? (
-                <div className={!isCollapsed ? "mt-2" : ""}>
+              {(!isCollapsed && (!section.title || expandedSections[section.title])) || isCollapsed ? (
+                <div className={!isCollapsed && section.title ? "mt-2" : ""}>
                   {section.items.map((item) => (
                     <NavLink
                       key={item.path}

@@ -260,7 +260,7 @@ export function Licenses() {
 <div className="flex flex-col lg:flex-row gap-4">
 <div className="flex-1 relative">
 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-<Input
+<input
 
                 placeholder="Search licenses, owners, or jurisdictions..."
 
@@ -268,7 +268,7 @@ export function Licenses() {
 
                 onChange={(e) => setSearchTerm(e.target.value)}
 
-                className="pl-10"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 
               />
 </div>
@@ -320,11 +320,10 @@ export function Licenses() {
 <option value="non-compliant">Non-Compliant</option>
 </select>
  
-              <Button variant="outline" className="gap-2">
-<Download className="w-4 h-4" />
-
-                Export
-</Button>
+<button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                <Download className="w-4 h-4" />
+                <span>Export</span>
+              </button>
 </div>
 </div>
 </div>

@@ -15,6 +15,7 @@ import { StatCard } from "../components/StatCard";
 import map from '../assets/mapDummy.png';
 import { Card } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
+import { GlobalSearch } from "../components/GlobalSearch";
 
 
 export function Dashboard() {
@@ -255,8 +256,9 @@ export function Dashboard() {
 
         {/* Map and Alerts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
           {/* US Market Readiness Map */}
-          <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">U.S. Market Readiness Map</h2>
               <div className="flex gap-2">

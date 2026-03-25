@@ -25,6 +25,7 @@ import {
 import { PageHeader } from "../components/PageHeader";
 import { extractDocument } from "../utils/api";
 import dummyDocImage from "../assets/dummyData.jpg";
+import workflowChart from "../assets/dummyData2.jpg";
 
 type TabType = "general" | "professional" | "experience" | "documents" | "disclosure" | "approve";
 
@@ -49,6 +50,8 @@ export function ContractorRegistration() {
   const [activeTab, setActiveTab] = useState<TabType>("general");
   const [completedTabs, setCompletedTabs] = useState<TabType[]>([]);
   const [approvalComment, setApprovalComment] = useState("");
+  const [isStatusExpanded, setIsStatusExpanded] = useState(true);
+  const [isWorkflowExpanded, setIsWorkflowExpanded] = useState(false);
 
   // Form state with dummy data
   const [formData, setFormData] = useState({
@@ -1379,6 +1382,113 @@ export function ContractorRegistration() {
                   >
                     Reject
                   </button>
+                </div>
+
+                {/* Status of Application Process */}
+                <div className="mt-8 bg-white border border-gray-300 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setIsStatusExpanded(!isStatusExpanded)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-gray-900">Status of application process</span>
+                    {isStatusExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-gray-600" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-600" />
+                    )}
+                  </button>
+                  
+                  {isStatusExpanded && (
+                    <div className="border-t border-gray-200">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">From</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">To</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Command</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Remarks/Comments</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Executor</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Available for</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Transition Time</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700 border-r border-gray-200">Turn around time</th>
+                              <th className="px-4 py-3 text-left font-medium text-gray-700">Attachment</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            <tr className="hover:bg-gray-50">
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">New client request submitted</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Evaluation</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Start</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">vincentmegat.vincent@gmail.com</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">2026-03-19T22:23:01.601</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900"></td>
+                            </tr>
+                            <tr className="hover:bg-gray-50">
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Evaluation</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">UnderReview</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Approve</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">
+                                <div className="text-xs text-gray-600 break-words max-w-xs">
+                                  copycat@ca.go.ke, listenm@ca.go.ke, sande@ca.go.ke, skimuli@ca.go.ke, araka@ca.go.ke, onjaye@ca.go.ke, bonga@ca.go.ke, kilili@ca.go.ke, lesan@ca.go.ke, barasa@ca.go.ke, musomba@ca.go.ke, testca@ca.go.ke
+                                </div>
+                              </td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900"></td>
+                            </tr>
+                            <tr className="hover:bg-gray-50">
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">UnderReview</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Active</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Approve</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">
+                                <div className="text-xs text-gray-600 break-words max-w-xs">
+                                  copycat@ca.go.ke, copycat2@ca.go.ke, sande@ca.go.ke, skimuli@ca.go.ke, araka@ca.go.ke, barasa@ca.go.ke, testca@ca.go.ke
+                                </div>
+                              </td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
+                              <td className="px-4 py-3 text-gray-900"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Workflow Design Flow Chart */}
+                <div className="mt-4 bg-white border border-gray-300 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setIsWorkflowExpanded(!isWorkflowExpanded)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-blue-600">Workflow design flow chart (Expand to view the design flow)</span>
+                    {isWorkflowExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-gray-600" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-600" />
+                    )}
+                  </button>
+                  
+                  {isWorkflowExpanded && (
+                    <div className="border-t border-gray-200 p-4">
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <img
+                          src={workflowChart}
+                          alt="Workflow Design Flow Chart"
+                          className="w-full h-auto max-w-full rounded border border-gray-200"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
