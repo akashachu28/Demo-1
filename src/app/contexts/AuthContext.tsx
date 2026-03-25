@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { UserRole, AccessLevel, getAccessLevels } from '../constants/accessLevels';
 
 interface User {
   email: string;
   name: string;
+  role: UserRole;
+  accessLevels: AccessLevel[];
 }
 
 interface AuthContextType {
@@ -11,6 +14,7 @@ interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   isLoading: boolean;
+  hasAccess: (accessLevel: AccessLevel) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,7 +43,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token && userData) {
       try {
         const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
+        
+        // Validate that the user has the required properties
+        if (parsedUser && parsedUser.role && parsedUser.accessLevels) {
+          setUser(parsedUser);
+        } else {
+          // Old user data format - clear it
+          console.warn('Outdated user data format, clearing session');
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('user_data');
+        }
       } catch (error) {
         console.error('Error parsing user data:', error);
         localStorage.removeItem('auth_token');
@@ -52,12 +65,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     // Dummy authentication - replace with real API call
+    let userData: User | null = null;
+
     if (email === 'admin' && password === 'admin@123') {
-      const userData: User = {
+      userData = {
         email: 'admin@renuity.com',
-        name: 'Administrator'
+        name: 'Administrator',
+        role: 'admin',
+        accessLevels: getAccessLevels('admin'),
       };
-      
+    } else if (email === 'contractor' && password === 'admin@123') {
+      userData = {
+        email: 'contractor@renuity.com',
+        name: 'Contractor User',
+        role: 'contractor',
+        accessLevels: getAccessLevels('contractor'),
+      };
+    }
+
+    if (userData) {
       // Generate a dummy token
       const token = btoa(`${email}:${Date.now()}`);
       
@@ -77,12 +103,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
+  const hasAccess = (accessLevel: AccessLevel): boolean => {
+    if (!user || !user.accessLevels) return false;
+    return user.accessLevels.includes(accessLevel);
+  };
+
   const value: AuthContextType = {
     user,
     login,
     logout,
     isAuthenticated: !!user,
-    isLoading
+    isLoading,
+    hasAccess,
   };
 
   return (

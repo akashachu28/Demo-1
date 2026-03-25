@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Eye, EyeOff, Lock, User, AlertCircle, X, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { Eye, EyeOff, Lock, User, AlertCircle } from 'lucide-react';
 import renuityLogo from '../assets/renuityLogo.svg';
 import backgroundImg from '../assets/bgAS.avif';
 
@@ -14,7 +15,20 @@ export function Login() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [otpError, setOtpError] = useState('');
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
-  const { login } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      // Redirect based on user role
+      if (user.role === 'contractor') {
+        navigate('/contractors/register', { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,7 +82,9 @@ export function Login() {
       if (otpValue.length === 6) {
         // Now actually log in
         const success = await login(email, password);
-        if (!success) {
+        if (success) {
+          // Navigation will be handled by useEffect
+        } else {
           setOtpError('Login failed. Please try again.');
         }
       } else {

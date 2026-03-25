@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock, Eye, Sparkles, Zap, Bell, RefreshCw, FileText, Ban, ChevronRight } from "lucide-react";
+import { Search, Filter, Download, UserPlus, MoreVertical, CheckCircle, AlertTriangle, Clock, Eye, Sparkles, Zap, Bell, RefreshCw, FileText, Ban, ChevronRight, Check, X, SearchCheck } from "lucide-react";
 import { PageHeader } from "../components/PageHeader";
 
 const contractors = [
@@ -55,7 +55,10 @@ export function Contractors() {
         title="Contractor Master Registry"
         subtitle="System of Record - 24,853 Total Contractors"
         action={
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors">
+          <button 
+            onClick={() => navigate('/contractors/register')}
+            className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
+          >
             <UserPlus className="w-4 h-4" />
             <span>Add Contractor</span>
           </button>
@@ -80,7 +83,7 @@ export function Contractors() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search contractors..."
+                placeholder="Search contractors by name, company or location..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -157,79 +160,90 @@ export function Contractors() {
                       <td className="px-6 py-4 text-sm text-gray-700">{contractor.expires}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <button className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-                            <Sparkles className="w-4 h-4" />
-                            <span>AI Insight</span>
-                          </button>
-                          <div className="relative">
-                            <button 
-                              onClick={() => setOpenDropdown(openDropdown === contractor.id ? null : contractor.id)}
-                              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-                            >
-                              <Eye className="w-4 h-4" />
-                              <span>View</span>
-                              <MoreVertical className="w-4 h-4" />
-                            </button>
-                            
-                            {openDropdown === contractor.id && (
-                              <>
-                                <div 
-                                  className="fixed inset-0 z-10" 
-                                  onClick={() => setOpenDropdown(null)}
-                                />
-                                <div className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl z-20 overflow-hidden">
-                                  <button 
-                                    onClick={() => navigate(`/contractors/${contractor.id}`)}
-                                    className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left"
-                                  >
-                                    <Eye className="w-5 h-5" />
-                                    <span className="text-sm font-medium">View Profile</span>
-                                  </button>
-                                  
-                                  <div className="border-t border-gray-700" />
-                                  
-                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                    <Zap className="w-5 h-5" />
-                                    <span className="text-sm font-medium">Run AI Compliance Check</span>
-                                  </button>
-                                  
-                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-gray-700 transition-colors text-left">
-                                    <Sparkles className="w-5 h-5" />
-                                    <span className="text-sm font-medium">Explain Status (AI)</span>
-                                  </button>
-                                  
-                                  <div className="border-t border-gray-700" />
-                                  
-                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                    <Bell className="w-5 h-5" />
-                                    <span className="text-sm font-medium">Send Reminder</span>
-                                  </button>
-                                  
-                                  <button className="w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                    <div className="flex items-center gap-3">
-                                      <RefreshCw className="w-5 h-5" />
-                                      <span className="text-sm font-medium">Recheck Eligibility</span>
-                                    </div>
-                                    <ChevronRight className="w-4 h-4" />
-                                  </button>
-                                  
-                                  <div className="border-t border-gray-700" />
-                                  
-                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
-                                    <FileText className="w-5 h-5" />
-                                    <span className="text-sm font-medium">View Audit Logs</span>
-                                  </button>
-                                  
-                                  <div className="border-t border-gray-700" />
-                                  
-                                  <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-gray-700 transition-colors text-left">
-                                    <Ban className="w-5 h-5" />
-                                    <span className="text-sm font-medium">Block Contractor</span>
-                                  </button>
-                                </div>
-                              </>
-                            )}
-                          </div>
+                          {contractor.status === "pending" ? (
+                            <>
+                              <button 
+                                onClick={() => {
+                                  navigate('/contractors/dummy-registration');
+                                }}
+                                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
+                              >
+                                <SearchCheck className="w-4 h-4" />
+                                <span>Review</span>
+                              </button>
+                              
+                            </>
+                          ) : (
+                            <div className="relative">
+                              <button 
+                                onClick={() => setOpenDropdown(openDropdown === contractor.id ? null : contractor.id)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                              >
+                                <Eye className="w-4 h-4" />
+                                <span>View</span>
+                                <MoreVertical className="w-4 h-4" />
+                              </button>
+                              
+                              {openDropdown === contractor.id && (
+                                <>
+                                  <div 
+                                    className="fixed inset-0 z-10" 
+                                    onClick={() => setOpenDropdown(null)}
+                                  />
+                                  <div className="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl z-20 overflow-hidden">
+                                    <button 
+                                      onClick={() => navigate(`/contractors/${contractor.id}`)}
+                                      className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left"
+                                    >
+                                      <Eye className="w-5 h-5" />
+                                      <span className="text-sm font-medium">View Profile</span>
+                                    </button>
+                                    
+                                    <div className="border-t border-gray-700" />
+                                    
+                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                      <Zap className="w-5 h-5" />
+                                      <span className="text-sm font-medium">Run AI Compliance Check</span>
+                                    </button>
+                                    
+                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-gray-700 transition-colors text-left">
+                                      <Sparkles className="w-5 h-5" />
+                                      <span className="text-sm font-medium">Explain Status (AI)</span>
+                                    </button>
+                                    
+                                    <div className="border-t border-gray-700" />
+                                    
+                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                      <Bell className="w-5 h-5" />
+                                      <span className="text-sm font-medium">Send Reminder</span>
+                                    </button>
+                                    
+                                    <button className="w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                      <div className="flex items-center gap-3">
+                                        <RefreshCw className="w-5 h-5" />
+                                        <span className="text-sm font-medium">Recheck Eligibility</span>
+                                      </div>
+                                      <ChevronRight className="w-4 h-4" />
+                                    </button>
+                                    
+                                    <div className="border-t border-gray-700" />
+                                    
+                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-gray-700 transition-colors text-left">
+                                      <FileText className="w-5 h-5" />
+                                      <span className="text-sm font-medium">View Audit Logs</span>
+                                    </button>
+                                    
+                                    <div className="border-t border-gray-700" />
+                                    
+                                    <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-gray-700 transition-colors text-left">
+                                      <Ban className="w-5 h-5" />
+                                      <span className="text-sm font-medium">Block Contractor</span>
+                                    </button>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </td>
                     </tr>

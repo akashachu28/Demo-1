@@ -1,11 +1,20 @@
 import { 
+  AlertCircle,
   ChevronRight,
+  Clock,
+  FileText,
   Minus,
-  Sparkles
+  Sparkles,
+  Users,
+  TrendingUp,
+  AlertTriangle,
+  CheckCircle
 } from "lucide-react";
 import { PageHeader } from "../components/PageHeader";
 import { StatCard } from "../components/StatCard";
 import map from '../assets/mapDummy.png';
+import { Card } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
 
 
 export function Dashboard() {
@@ -64,6 +73,74 @@ export function Dashboard() {
     },
   ];
 
+  const kpiData = [
+
+    {
+
+      title: 'Total Licenses',
+
+      value: '487',
+
+      change: '+12 this month',
+
+      icon: FileText,
+
+      color: 'text-blue-600',
+
+      bgColor: 'bg-blue-50',
+
+    },
+
+    {
+
+      title: 'Expiring Soon',
+
+      value: '23',
+
+      change: 'Within 30 days',
+
+      icon: Clock,
+
+      color: 'text-yellow-600',
+
+      bgColor: 'bg-yellow-50',
+
+    },
+
+    {
+
+      title: 'Non-Compliant',
+
+      value: '8',
+
+      change: 'Requires action',
+
+      icon: AlertCircle,
+
+      color: 'text-red-600',
+
+      bgColor: 'bg-red-50',
+
+    },
+
+    {
+
+      title: 'Active Contractors',
+
+      value: '1,247',
+
+      change: '+34 this week',
+
+      icon: Users,
+
+      color: 'text-green-600',
+
+      bgColor: 'bg-green-50',
+
+    },
+
+  ];
+
   const alerts = [
     {
       severity: "High",
@@ -91,26 +168,95 @@ export function Dashboard() {
     },
   ];
 
+  const alertsFromDemo = [
+    {
+      type: 'warning',
+      message: '5 licenses expiring in the next 30 days',
+      time: '2 hours ago',
+    },
+    {
+      type: 'error',
+      message: '3 contractors missing required insurance documentation',
+      time: '5 hours ago',
+    },
+    {
+      type: 'info',
+      message: 'New compliance requirements for California effective April 1st',
+      time: '1 day ago',
+    },
+    {
+      type: 'warning',
+      message: '12 continuing education credits due for renewal',
+      time: '2 days ago',
+    },
+  ];
+
+  const recentActivity = [
+    {
+      action: 'License Renewed',
+      detail: 'General Contractor License - Texas (#TX-GC-45891)',
+      user: 'Sarah Johnson',
+      time: '15 minutes ago',
+    },
+    {
+      action: 'Contractor Approved',
+      detail: 'John Martinez - Full compliance verified',
+      user: 'Mike Chen',
+      time: '1 hour ago',
+    },
+    {
+      action: 'Document Uploaded',
+      detail: 'Certificate of Insurance - Colorado project',
+      user: 'Emily Davis',
+      time: '2 hours ago',
+    },
+    {
+      action: 'Gap Analysis Completed',
+      detail: 'Florida expansion - 3 action items identified',
+      user: 'System',
+      time: '3 hours ago',
+    },
+    {
+      action: 'License Submitted',
+      detail: 'Electrical License - New York (#NY-EL-78923)',
+      user: 'David Park',
+      time: '5 hours ago',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-full bg-gray-50">
       <PageHeader 
         title="Executive Command Center"
-        subtitle="Central Liscense Registry — Real-time Greenfield Readiness"
+        subtitle="Central License Registry — Real-time Greenfield Readiness"
       />
 
       {/* Content */}
       <div className="p-8 space-y-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {statsCards.map((card) => (
-            <StatCard key={card.title} {...card} />
-          ))}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-        {/* Main Content Grid */}
+          {kpiData.map((kpi) => (
+<Card key={kpi.title} className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+<div className="flex items-start justify-between">
+<div>
+<p className="text-sm text-gray-600 mb-1">{kpi.title}</p>
+<p className="text-3xl font-bold text-gray-900 mb-2">{kpi.value}</p>
+<p className="text-xs text-gray-500">{kpi.change}</p>
+</div>
+<div className={`w-12 h-12 ${kpi.bgColor} rounded-xl flex items-center justify-center`}>
+<kpi.icon className={`w-6 h-6 ${kpi.color}`} />
+</div>
+</div>
+</Card>
+
+          ))}
+</div>
+
+        {/* Map and Alerts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* US Market Readiness Map */}
-          <div className="lg:col-span-2 bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+          <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">U.S. Market Readiness Map</h2>
               <div className="flex gap-2">
@@ -126,7 +272,7 @@ export function Dashboard() {
             </div>
             
             {/* Map Image */}
-            <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative h-96 bg-gray-100 rounded-xl overflow-hidden">
               <img 
                 src={map} 
                 alt="U.S. Market Readiness Map" 
@@ -155,110 +301,70 @@ export function Dashboard() {
             </div>
           </div>
 
-          {/* AI Insights */}
-          <div className="bg-white rounded-lg px-6 py-2 shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between mb-4 py-2 border-b-1 border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">AI Insights</h2>
-              <div className="flex items-center gap-1 text-blue-600 text-sm font-medium">
-                <Sparkles className="w-4 h-4" />
-                <span>POWERED</span>
-              </div>
+          {/* Alerts Panel */}
+          <Card className="p-6 bg-white border border-gray-200">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-gray-900">Alerts</h2>
+              <Badge variant="destructive">{alertsFromDemo.filter(a => a.type === 'error').length}</Badge>
             </div>
 
-            <div className="">
-              {insights.map((insight, index) => (
-                <div key={index} className="flex gap-3 border-b-1 border-gray-200 py-2">
-                  <div className={`w-2 h-2 ${insight.color} rounded-full mt-1.5 flex-shrink-0`}></div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{insight.title}</p>
-                    <p className="text-xs text-gray-500 mt-0.5 whitespace-pre-line">{insight.subtitle}</p>
+            <div className="space-y-4">
+              {alertsFromDemo.map((alert, index) => (
+                <div
+                  key={index}
+                  className={`p-4 rounded-lg border-l-4 ${
+                    alert.type === 'error'
+                      ? 'bg-red-50 border-red-500'
+                      : alert.type === 'warning'
+                      ? 'bg-yellow-50 border-yellow-500'
+                      : 'bg-blue-50 border-blue-500'
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    {alert.type === 'error' ? (
+                      <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    ) : alert.type === 'warning' ? (
+                      <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                    ) : (
+                      <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    )}
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-900">{alert.message}</p>
+                      <p className="text-xs text-gray-500 mt-1">{alert.time}</p>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            <button className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900 mt-6
-             border-gray-300 border-1 rounded-lg px-3 py-2 hover:bg-gray-50">
-              View All Insights (8)
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+          </Card>
         </div>
+
+        {/* Recent Activity */}
+        <Card className="p-6 bg-white border border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Recent Activity</h2>
+          <div className="space-y-4">
+            {recentActivity.map((activity, index) => (
+              <div key={index} className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div className="w-10 h-10 bg-[#36b0c9] rounded-full flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900">{activity.action}</p>
+                      <p className="text-sm text-gray-600 mt-1">{activity.detail}</p>
+                    </div>
+                    <span className="text-xs text-gray-500 whitespace-nowrap ml-4">{activity.time}</span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">by {activity.user}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
 
         {/* Recent Alerts */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Alerts</h2>
-          </div>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center gap-1">
-                      Jurisdiction
-                      <ChevronRight className="w-3 h-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center gap-1">
-                      Status
-                      <ChevronRight className="w-3 h-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acted/Time ago</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {alerts.map((alert, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`text-sm font-medium ${alert.severityColor}`}>
-                        {alert.severity}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap font-medium text-sm text-gray-900">
-                      {alert.issue}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hover:underline cursor-pointer">
-                      {alert.jurisdiction}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
-                      {alert.status}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {alert.time}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="p-4 border-t border-gray-200 bg-gray-50">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-2">
-                <span className="text-gray-600">Jurisdiction Drill-Down</span>
-                <span className="flex items-center gap-1 text-green-600">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  Texas
-                </span>
-                <ChevronRight className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-600">Harris County</span>
-                <ChevronRight className="w-4 h-4 text-gray-400" />
-                <span className="font-medium text-gray-900">Houston</span>
-                <span className="text-gray-600">85% Ready | 67 At Ris | $4.2M Coverage</span>
-              </div>
-              <button className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium">
-                View All 254 Jurisdictions
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

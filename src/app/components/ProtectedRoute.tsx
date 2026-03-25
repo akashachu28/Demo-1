@@ -1,6 +1,6 @@
 import React from 'react';
+import { Navigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
-import { Login } from '../pages/Login';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Login />;
+    return <Navigate to="/login" replace />;
   }
 
   return <>{children}</>;

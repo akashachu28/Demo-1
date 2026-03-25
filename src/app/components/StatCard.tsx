@@ -11,7 +11,7 @@ interface StatCardProps {
 
 export function StatCard({ title, value, change, positive, icons, highlight }: StatCardProps) {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-medium text-gray-600">{title}</h3>
         {icons && (

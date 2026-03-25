@@ -14,12 +14,14 @@ import {
   TrendingUp,
   Settings,
   SidebarOpen,
-  SidebarClose
+  SidebarClose,
+  ChevronDown
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
 import renuityLogo from "../assets/renuityLogo.svg";
 import renuityLogoC from "../assets/renuityLogo-cropped.svg";
+import { ACCESS_LEVELS, AccessLevel } from "../constants/accessLevels";
 
 interface SidebarItem {
   path: string;
@@ -27,6 +29,7 @@ interface SidebarItem {
   icon: React.ComponentType<any>;
   end?: boolean;
   indent?: boolean;
+  accessLevel: AccessLevel;
 }
 
 interface SidebarSection {
@@ -35,54 +38,73 @@ interface SidebarSection {
 }
 
 export function Layout() {
-  const { logout } = useAuth();
+  const { hasAccess } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    "LICENSES": true,
+    "OPERATIONS": true,
+    "COMPLIANCE": true,
+    "REPORTING": true,
+    "SYSTEM CONFIG": true
+  });
 
-  const sidebarSections: SidebarSection[] = [
+  const toggleSection = (title: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
+
+  const allSidebarSections: SidebarSection[] = [
     {
       title: "LICENSES",
       items: [
-        { path: "/", label: "Compliance Map", icon: BarChart3, end: true },
-        { path: "/reports", label: "Executive Reports", icon: FileText },
+        { path: "/", label: "Compliance Map", icon: BarChart3, end: true, accessLevel: ACCESS_LEVELS.DASHBOARD },
+        { path: "/reports", label: "Licenses", icon: FileText, accessLevel: ACCESS_LEVELS.EXECUTIVE_REPORTS },
       ],
     },
     {
       title: "OPERATIONS",
       items: [
-        { path: "/contractors", label: "Contractors", icon: Users },
-        { path: "/onboarding", label: "Onboarding", icon: UserPlus },
-        { path: "/eligibility", label: "Eligibility", icon: ListChecks },
-        { path: "/retainer", label: "Retainer Ledger", icon: BookUser },
+        { path: "/contractors", label: "Contractors", icon: Users, accessLevel: ACCESS_LEVELS.CONTRACTORS },
+        { path: "/contractors/register", label: "Register", icon: UserPlus, accessLevel: ACCESS_LEVELS.CONTRACTORS_REGISTER },
+        { path: "/onboarding", label: "Onboarding", icon: UserPlus, accessLevel: ACCESS_LEVELS.ONBOARDING },
+        { path: "/eligibility", label: "Eligibility", icon: ListChecks, accessLevel: ACCESS_LEVELS.ELIGIBILITY },
+        { path: "/retainer", label: "Retainer Ledger", icon: BookUser, accessLevel: ACCESS_LEVELS.RETAINER_LEDGER },
       ],
     },
     {
       title: "COMPLIANCE",
       items: [
-        { path: "/documents", label: "Documents", icon: ClipboardList },
-        { path: "/documents/processor", label: "Document Processor", icon: FileCheck, indent: true },
-        { path: "/renewals", label: "Renewals", icon: RefreshCw },
-        { path: "/jurisdictions", label: "Jurisdictions", icon: Gavel },
-        { path: "/credentials", label: "Credentials", icon: FileCheck },
-        { path: "/audit", label: "Audit Trail", icon: CheckSquare },
+        { path: "/documents", label: "Documents", icon: ClipboardList, accessLevel: ACCESS_LEVELS.DOCUMENTS },
+        { path: "/documents/processor", label: "Document Processor", icon: FileCheck, indent: true, accessLevel: ACCESS_LEVELS.DOCUMENT_PROCESSOR },
+        { path: "/renewals", label: "Renewals", icon: RefreshCw, accessLevel: ACCESS_LEVELS.RENEWALS },
+        { path: "/jurisdictions", label: "Jurisdictions", icon: Gavel, accessLevel: ACCESS_LEVELS.JURISDICTIONS },
+        { path: "/credentials", label: "Credentials", icon: FileCheck, accessLevel: ACCESS_LEVELS.CREDENTIALS },
+        { path: "/audit", label: "Audit Trail", icon: CheckSquare, accessLevel: ACCESS_LEVELS.AUDIT_TRAIL },
       ],
     },
     {
       title: "REPORTING",
       items: [
-        { path: "/greenfield", label: "Greenfield", icon: TrendingUp },
+        { path: "/greenfield", label: "Greenfield", icon: TrendingUp, accessLevel: ACCESS_LEVELS.GREENFIELD },
       ],
     },
     {
       title: "SYSTEM CONFIG",
       items: [
-        { path: "/system-rules", label: "System Rules", icon: Settings },
+        { path: "/system-rules", label: "System Rules", icon: Settings, accessLevel: ACCESS_LEVELS.SYSTEM_RULES },
       ],
     },
   ];
 
-  const handleLogout = () => {
-    logout();
-  };
+  // Filter sections and items based on user access
+  const sidebarSections = allSidebarSections
+    .map(section => ({
+      ...section,
+      items: section.items.filter(item => hasAccess(item.accessLevel))
+    }))
+    .filter(section => section.items.length > 0);
 
   return (
     <div className="min-h-screen bg-[#0E4665] flex ">
@@ -143,36 +165,46 @@ export function Layout() {
           {sidebarSections.map((section, idx) => (
             <div key={section.title} className={idx > 0 ? "mt-6" : ""}>
               {!isCollapsed && (
-                <h3 className="text-xs font-semibold text-white mb-2 px-3">
-                  {section.title}
-                </h3>
+                <button
+                  onClick={() => toggleSection(section.title)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-white  transition-colors"
+                >
+                  <span>{section.title}</span>
+                  <ChevronDown 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      expandedSections[section.title] ? '' : '-rotate-90'
+                    }`}
+                  />
+                </button>
               )}
-              <div>
-                {section.items.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    end={item.end}
-                    className={({ isActive }) =>
-                      `flex items-center gap-3 py-3 transition-all duration-200 ease-in-out ${
-                        isCollapsed 
-                          ? "px-4 justify-center" 
-                          : item.indent 
-                            ? "px-6 pl-9" 
-                            : "px-3"
-                      } ${
-                        isActive
-                          ? "bg-[#003057] text-white shadow-sm"
-                          : "text-gray-400 hover:bg-[#003057] hover:text-white hover:shadow-sm hover:translate-x-1"
-                      } active:scale-95`
-                    }
-                    title={isCollapsed ? item.label : undefined}
-                  >
-                    <item.icon className="w-4 h-4 flex-shrink-0" />
-                    {!isCollapsed && <span className="text-sm">{item.label}</span>}
-                  </NavLink>
-                ))}
-              </div>
+              {(!isCollapsed && expandedSections[section.title]) || isCollapsed ? (
+                <div className={!isCollapsed ? "mt-2" : ""}>
+                  {section.items.map((item) => (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      end={item.end}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 py-3 transition-all duration-200 ease-in-out ${
+                          isCollapsed 
+                            ? "px-4 justify-center" 
+                            : item.indent 
+                              ? "px-6 pl-9" 
+                              : "px-3"
+                        } ${
+                          isActive
+                            ? "bg-[#003057] text-white shadow-sm"
+                            : "text-gray-400 hover:bg-[#003057] hover:text-white hover:shadow-sm hover:translate-x-1"
+                        } active:scale-95`
+                      }
+                      title={isCollapsed ? item.label : undefined}
+                    >
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
+                      {!isCollapsed && <span className="text-sm">{item.label}</span>}
+                    </NavLink>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ))}
         </nav>
