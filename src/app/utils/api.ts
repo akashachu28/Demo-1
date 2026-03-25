@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API || 'http://192.168.20.135:9010';
+const API_BASE_URL = import.meta.env.VITE_API || 'http://106.51.226.42:9010';
 
 export const apiClient = {
   async get(endpoint: string) {

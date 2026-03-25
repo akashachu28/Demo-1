@@ -1421,7 +1421,7 @@ export function ContractorRegistration() {
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Evaluation</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Start</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
-                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">vincentmegat.vincent@gmail.com</td>
+                              <td className="px-4 py-3 text-gray-900 border-r border-gray-200">tonyStark@xyz.com</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">2026-03-19T22:23:01.601</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
@@ -1433,7 +1433,7 @@ export function ContractorRegistration() {
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Approve</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">
                                 <div className="text-xs text-gray-600 break-words max-w-xs">
-                                  copycat@ca.go.ke, listenm@ca.go.ke, sande@ca.go.ke, skimuli@ca.go.ke, araka@ca.go.ke, onjaye@ca.go.ke, bonga@ca.go.ke, kilili@ca.go.ke, lesan@ca.go.ke, barasa@ca.go.ke, musomba@ca.go.ke, testca@ca.go.ke
+                                  in Review
                                 </div>
                               </td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>
@@ -1448,7 +1448,7 @@ export function ContractorRegistration() {
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">Approve</td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200">
                                 <div className="text-xs text-gray-600 break-words max-w-xs">
-                                  copycat@ca.go.ke, copycat2@ca.go.ke, sande@ca.go.ke, skimuli@ca.go.ke, araka@ca.go.ke, barasa@ca.go.ke, testca@ca.go.ke
+                                    processing
                                 </div>
                               </td>
                               <td className="px-4 py-3 text-gray-900 border-r border-gray-200"></td>

@@ -36,13 +36,30 @@ export function Login() {
     setError('');
 
     try {
-      // Simulate credential validation
-      if (email && password) {
-        // Show OTP modal instead of logging in directly
-        setShowOtpModal(true);
-      } else {
-        setError('Invalid credentials. Please try again.');
+      // First validate credentials
+      const validCredentials = [
+        { email: 'admin', password: 'admin@123' },
+        { email: 'user', password: 'user@123' },
+        { email: 'contractor', password: 'contractor@123' },
+        { email: 'manager', password: 'manager@123' }
+      ];
+
+      const isValidCredential = validCredentials.some(
+        cred => cred.email === email && cred.password === password
+      );
+
+      if (!email || !password) {
+        setError('Please enter both username and password.');
+        return;
       }
+
+      if (!isValidCredential) {
+        setError('Invalid username or password. Please try again.');
+        return;
+      }
+
+      // If credentials are valid, show OTP modal
+      setShowOtpModal(true);
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
@@ -222,13 +239,15 @@ export function Login() {
             </form>
 
             {/* Demo Credentials */}
-            {/* <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <h3 className="text-sm font-semibold text-blue-800 mb-2">Demo Credentials</h3>
               <div className="text-xs text-blue-700 space-y-1">
-                <p><span className="font-medium">Username:</span> admin</p>
-                <p><span className="font-medium">Password:</span> admin@123</p>
+                <p><span className="font-medium">Admin:</span> admin / admin@123</p>
+                <p><span className="font-medium">User:</span> user / user@123</p>
+                <p><span className="font-medium">Contractor:</span> contractor / contractor@123</p>
+                <p><span className="font-medium">Manager:</span> manager / manager@123</p>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
         )}
