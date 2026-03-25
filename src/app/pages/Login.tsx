@@ -40,7 +40,7 @@ export function Login() {
       const validCredentials = [
         { email: 'admin', password: 'admin@123' },
         { email: 'user', password: 'user@123' },
-        { email: 'contractor', password: 'contractor@123' },
+        { email: 'contractor', password: 'admin@123' },
         { email: 'manager', password: 'manager@123' }
       ];
 
