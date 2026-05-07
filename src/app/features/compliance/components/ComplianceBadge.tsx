@@ -78,7 +78,7 @@ export function ComplianceBadge({ status, size = 'md', showIcon = true }: Compli
  
   const sizeClasses = {
 
-    sm: 'px-2 py-0.5 text-xs gap-1',
+    sm: 'px-2 py-0.5 text-xs gap-1 text-nowrap',
 
     md: 'px-3 py-1 text-sm gap-1.5',
 

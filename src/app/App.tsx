@@ -5,7 +5,7 @@ import { AuthProvider } from './features/auth/contexts/AuthContext';
 export default function App() {
   return (
     <AuthProvider>
-      <div className="dark">
+      <div className="dark bg-gray-50">
         <RouterProvider router={router} />
       </div>
     </AuthProvider>
