@@ -17,7 +17,7 @@ export function Login() {
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const { login, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-
+  
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated && user) {
