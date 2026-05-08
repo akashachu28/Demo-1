@@ -1,5 +1,6 @@
 import { DollarSign, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 const retainerTransactions = [
   { id: "1", contractor: "John Smith", type: "deposit", amount: 5000, balance: 5000, date: "Mar 20, 2026", description: "Initial retainer deposit" },
@@ -23,100 +24,152 @@ const contractorBalances = [
 
 export function RetainerLedger() {
   const stats = [
-    { label: "Total Balance", value: "$284.5K", icon: DollarSign, color: "blue", trend: "+12.5%" },
-    { label: "Deposits (30D)", value: "$45.2K", icon: TrendingUp, color: "green", trend: "+8.3%" },
-    { label: "Withdrawals (30D)", value: "$23.8K", icon: TrendingDown, color: "orange", trend: "-4.2%" },
-    { label: "Active Accounts", value: "127", icon: Calendar, color: "purple", trend: "+15" },
+    { 
+      title: "Total Balance", 
+      value: "$284.5K", 
+      change: "+12.5% growth",
+      icon: DollarSign, 
+      color: "text-blue-500",
+      bgColor: "bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100"
+    },
+    { 
+      title: "Deposits (30D)", 
+      value: "$45.2K", 
+      change: "+8.3% increase",
+      icon: TrendingUp, 
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-br from-green-50 via-green-50 to-green-100"
+    },
+    { 
+      title: "Withdrawals (30D)", 
+      value: "$23.8K", 
+      change: "-4.2% decrease",
+      icon: TrendingDown, 
+      color: "text-orange-600",
+      bgColor: "bg-gradient-to-br from-orange-50 via-orange-50 to-orange-100"
+    },
+    { 
+      title: "Active Accounts", 
+      value: "127", 
+      change: "+15 new accounts",
+      icon: Calendar, 
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-br from-purple-50 via-purple-50 to-purple-100"
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader 
-        title="Retainer Ledger"
-        subtitle="Track contractor retainer balances and transactions"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Retainer Ledger"
+          subtitle="Track contractor retainer balances and transactions"
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between mb-2">
-                  <Icon className="w-5 h-5 text-blue-600" />
-                  <span className="text-xs text-green-600 font-medium">{stat.trend}</span>
-                </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</p>
-                <p className="text-sm text-gray-600">{stat.label}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Recent Transactions */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Transactions</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Amount</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Balance</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Description</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {retainerTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-4 text-sm text-gray-600">{transaction.date}</td>
-                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">{transaction.contractor}</td>
-                    <td className="px-4 py-4">
-                      <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                        transaction.type === 'deposit' 
-                          ? 'bg-green-100 text-green-600' 
-                          : 'bg-red-100 text-red-600'
-                      }`}>
-                        {transaction.type === 'deposit' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                        {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
-                      </span>
-                    </td>
-                    <td className={`px-4 py-4 text-sm font-semibold ${
-                      transaction.type === 'deposit' ? 'text-green-600' : 'text-red-600'
-                    }`}>
-                      {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toLocaleString()}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">${transaction.balance.toLocaleString()}</td>
-                    <td className="px-4 py-4 text-sm text-gray-600">{transaction.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Contractor Balances */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Contractor Balances</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {contractorBalances.map((account, idx) => (
-              <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="font-medium text-gray-900">{account.contractor}</p>
-                    <p className="text-xs text-gray-500 mt-1">Last: {account.lastActivity}</p>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2 rounded-lg">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+              {stats.map((stat) => (
+                <Card
+                  key={stat.title}
+                  className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[16px] text-gray-700 mb-1">
+                        {stat.title}
+                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-gray-700">
+                          {stat.value}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
+                    </div>
+                    <div
+                      className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center`}
+                    >
+                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                    </div>
                   </div>
-                  <span className="px-2 py-1 bg-green-100 text-green-600 text-xs rounded font-medium">Active</span>
-                </div>
-                <div className="flex items-baseline gap-1">
-                  <DollarSign className="w-4 h-4 text-blue-600" />
-                  <p className="text-2xl font-bold text-gray-900">{account.balance.toLocaleString()}</p>
+                </Card>
+              ))}
+            </div>
+
+            {/* Recent Transactions */}
+            <Card className="bg-white border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Date</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Amount</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Balance</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {retainerTransactions.map((transaction) => (
+                      <tr key={transaction.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-4 text-sm text-gray-600">{transaction.date}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 font-medium">{transaction.contractor}</td>
+                        <td className="px-4 py-4">
+                          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium ${
+                            transaction.type === 'deposit' 
+                              ? 'bg-green-100 text-green-600' 
+                              : 'bg-red-100 text-red-600'
+                          }`}>
+                            {transaction.type === 'deposit' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                            {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
+                          </span>
+                        </td>
+                        <td className={`px-4 py-4 text-sm font-semibold ${
+                          transaction.type === 'deposit' ? 'text-green-600' : 'text-red-600'
+                        }`}>
+                          {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toLocaleString()}
+                        </td>
+                        <td className="px-4 py-4 text-sm text-gray-900 font-medium">${transaction.balance.toLocaleString()}</td>
+                        <td className="px-4 py-4 text-sm text-gray-600">{transaction.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+
+            {/* Contractor Balances */}
+            <Card className="bg-white border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Top Contractor Balances</h3>
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {contractorBalances.map((account, idx) => (
+                    <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:bg-gray-100 transition-colors">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <p className="font-medium text-gray-900">{account.contractor}</p>
+                          <p className="text-xs text-gray-500 mt-1">Last: {account.lastActivity}</p>
+                        </div>
+                        <span className="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-md font-medium">Active</span>
+                      </div>
+                      <div className="flex items-baseline gap-1">
+                        <DollarSign className="w-4 h-4 text-blue-600" />
+                        <p className="text-2xl font-bold text-gray-900">{account.balance.toLocaleString()}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </Card>
           </div>
         </div>
       </div>

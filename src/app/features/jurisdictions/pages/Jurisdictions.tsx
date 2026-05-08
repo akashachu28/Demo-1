@@ -1,5 +1,6 @@
 import { MapPin, FileText, Users, DollarSign } from "lucide-react";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 const jurisdictions = [
   { state: "California", counties: 58, contractors: 87, licenses: 142, regulations: "High", avgCost: "$485" },
@@ -46,105 +47,143 @@ export function Jurisdictions() {
     }
   };
 
+  const kpiData = [
+    {
+      title: "Active States",
+      value: "36",
+      change: "All jurisdictions",
+      icon: MapPin,
+      color: "text-blue-500",
+      bgColor: "bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100",
+    },
+    {
+      title: "Total Counties",
+      value: "721",
+      change: "Across all states",
+      icon: FileText,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-br from-purple-50 via-purple-50 to-purple-100",
+    },
+    {
+      title: "Total Licenses",
+      value: "583",
+      change: "Active licenses",
+      icon: Users,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-br from-green-50 via-green-50 to-green-100",
+    },
+    {
+      title: "Avg Cost/License",
+      value: "$425",
+      change: "Per jurisdiction",
+      icon: DollarSign,
+      color: "text-orange-600",
+      bgColor: "bg-gradient-to-br from-orange-50 via-orange-50 to-orange-100",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader 
-        title="Jurisdictions"
-        subtitle="State and county compliance requirements"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Jurisdictions"
+          subtitle="State and county compliance requirements"
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Overview Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3 mb-2">
-              <MapPin className="w-5 h-5 text-blue-600" />
-              <p className="text-sm text-gray-600">Active States</p>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2 rounded-lg">
+            {/* Overview Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+              {kpiData.map((kpi) => (
+                <Card
+                  key={kpi.title}
+                  className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[16px] text-gray-700 mb-1">
+                        {kpi.title}
+                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-gray-700">
+                          {kpi.value}
+                        </p>
+                        <p className="text-xs text-gray-500">{kpi.change}</p>
+                      </div>
+                    </div>
+                    <div
+                      className={`w-12 h-12 ${kpi.bgColor} rounded-xl flex items-center justify-center`}
+                    >
+                      <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
-            <p className="text-3xl font-bold text-gray-900">36</p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3 mb-2">
-              <FileText className="w-5 h-5 text-purple-600" />
-              <p className="text-sm text-gray-600">Total Counties</p>
-            </div>
-            <p className="text-3xl font-bold text-gray-900">721</p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3 mb-2">
-              <Users className="w-5 h-5 text-green-600" />
-              <p className="text-sm text-gray-600">Total Licenses</p>
-            </div>
-            <p className="text-3xl font-bold text-gray-900">583</p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-3 mb-2">
-              <DollarSign className="w-5 h-5 text-orange-600" />
-              <p className="text-sm text-gray-600">Avg Cost/License</p>
-            </div>
-            <p className="text-3xl font-bold text-gray-900">$425</p>
-          </div>
-        </div>
 
-        {/* Jurisdictions Table */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">State Jurisdictions</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Counties</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractors</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Licenses</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Complexity</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Avg Cost</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {jurisdictions.map((jurisdiction) => (
-                  <tr key={jurisdiction.state} className="hover:bg-gray-50">
-                    <td className="px-4 py-4">
+            {/* Jurisdictions Table */}
+            <Card className="p-6 bg-white border border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">State Jurisdictions</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="border-b border-gray-200">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Counties</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractors</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Licenses</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Complexity</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Avg Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {jurisdictions.map((jurisdiction) => (
+                      <tr key={jurisdiction.state} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-4">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-blue-600" />
+                            <span className="text-sm text-gray-900 font-medium">{jurisdiction.state}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.counties}</td>
+                        <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.contractors}</td>
+                        <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.licenses}</td>
+                        <td className="px-4 py-4">
+                          <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getRegulationColor(jurisdiction.regulations)}`}>
+                            {jurisdiction.regulations}
+                          </span>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-gray-700 font-medium">{jurisdiction.avgCost}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+
+            {/* Regulatory Updates */}
+            <Card className="p-6 bg-white border border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Regulatory Updates</h2>
+              <div className="space-y-4">
+                {regulatoryUpdates.map((update, idx) => (
+                  <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:bg-gray-100 transition-colors">
+                    <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-blue-600" />
-                        <span className="text-sm text-gray-900 font-medium">{jurisdiction.state}</span>
+                        <span className="text-sm font-semibold text-gray-900">{update.state}</span>
                       </div>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.counties}</td>
-                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.contractors}</td>
-                    <td className="px-4 py-4 text-sm text-gray-700">{jurisdiction.licenses}</td>
-                    <td className="px-4 py-4">
-                      <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getRegulationColor(jurisdiction.regulations)}`}>
-                        {jurisdiction.regulations}
+                      <span className={`text-xs font-medium ${getImpactColor(update.impact)}`}>
+                        {update.impact} Impact
                       </span>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-700 font-medium">{jurisdiction.avgCost}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Regulatory Updates */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Regulatory Updates</h3>
-          <div className="space-y-4">
-            {regulatoryUpdates.map((update, idx) => (
-              <div key={idx} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm font-semibold text-gray-900">{update.state}</span>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-2">{update.update}</p>
+                    <p className="text-xs text-gray-500">{update.date}</p>
                   </div>
-                  <span className={`text-xs font-medium ${getImpactColor(update.impact)}`}>
-                    {update.impact} Impact
-                  </span>
-                </div>
-                <p className="text-sm text-gray-700 mb-2">{update.update}</p>
-                <p className="text-xs text-gray-500">{update.date}</p>
+                ))}
               </div>
-            ))}
+            </Card>
           </div>
         </div>
       </div>

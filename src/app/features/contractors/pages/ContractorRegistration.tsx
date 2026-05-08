@@ -392,10 +392,10 @@ export function ContractorRegistration() {
               </div>
 
               {/* Form Content */}
-              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
+              <div className="bg-white rounded-lg border border-gray-200  p-8">
                 {/* General Info Tab */}
                 {activeTab === "general" && (
-            <div className="space-y-6">
+            <div className="space-y-6 text-sm">
                     <div>
                       <h2 className="text-xl font-semibold text-gray-900 mb-2">General Information</h2>
                       <p className="text-sm text-gray-600">Please provide your basic personal information</p>
@@ -410,7 +410,7 @@ export function ContractorRegistration() {
                           type="text"
                           value={formData.firstName}
                           onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                          className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-4 py-2 text-sm  bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Enter first name"
                         />
                       </div>
@@ -423,7 +423,7 @@ export function ContractorRegistration() {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter last name"
                   />
                 </div>
@@ -436,7 +436,7 @@ export function ContractorRegistration() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -449,7 +449,7 @@ export function ContractorRegistration() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="(555) 123-4567"
                   />
                 </div>
@@ -462,7 +462,7 @@ export function ContractorRegistration() {
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({...formData, address: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="123 Main Street"
                   />
                 </div>
@@ -475,7 +475,7 @@ export function ContractorRegistration() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData({...formData, city: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter city"
                   />
                 </div>
@@ -487,7 +487,7 @@ export function ContractorRegistration() {
                   <select
                     value={formData.state}
                     onChange={(e) => setFormData({...formData, state: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select state</option>
                     <option value="CA">California</option>
@@ -506,7 +506,7 @@ export function ContractorRegistration() {
                     type="text"
                     value={formData.zipCode}
                     onChange={(e) => setFormData({...formData, zipCode: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="12345"
                   />
                 </div>
@@ -519,7 +519,7 @@ export function ContractorRegistration() {
                     type="password"
                     value={formData.ssn}
                     onChange={(e) => setFormData({...formData, ssn: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="XXX-XX-XXXX"
                   />
                 </div>
@@ -532,7 +532,7 @@ export function ContractorRegistration() {
                     type="date"
                     value={formData.dateOfBirth}
                     onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -555,7 +555,7 @@ export function ContractorRegistration() {
                   <select
                     value={formData.contractorType}
                     onChange={(e) => setFormData({...formData, contractorType: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select type</option>
                     {contractorTypes.map(type => (
@@ -572,7 +572,7 @@ export function ContractorRegistration() {
                     type="number"
                     value={formData.yearsOfExperience}
                     onChange={(e) => setFormData({...formData, yearsOfExperience: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="0"
                   />
                 </div>
@@ -584,7 +584,7 @@ export function ContractorRegistration() {
                   <select
                     value={formData.primarySkill}
                     onChange={(e) => setFormData({...formData, primarySkill: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select skill</option>
                     {skillSets.map(skill => (
@@ -604,7 +604,7 @@ export function ContractorRegistration() {
                       ...formData, 
                       secondarySkills: Array.from(e.target.selectedOptions, option => option.value)
                     })}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
                   >
                     {skillSets.map(skill => (
                       <option key={skill} value={skill}>{skill}</option>
@@ -621,7 +621,7 @@ export function ContractorRegistration() {
                     type="text"
                     value={formData.licenseNumber}
                     onChange={(e) => setFormData({...formData, licenseNumber: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="CA-12345"
                   />
                 </div>
@@ -633,7 +633,7 @@ export function ContractorRegistration() {
                   <select
                     value={formData.licenseState}
                     onChange={(e) => setFormData({...formData, licenseState: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select state</option>
                     <option value="CA">California</option>
@@ -652,7 +652,7 @@ export function ContractorRegistration() {
                     type="date"
                     value={formData.licenseExpiry}
                     onChange={(e) => setFormData({...formData, licenseExpiry: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -673,9 +673,9 @@ export function ContractorRegistration() {
                   <label className="text-sm font-medium text-gray-700">Past Projects</label>
                   <button
                     onClick={addProject}
-                    className="flex items-center gap-2 px-3 py-2 bg-[#36b0c9] text-gray-200 rounded-lg hover:bg-[#0E4665] transition-colors text-sm"
+                    className="flex items-center gap-2 px-3 py-2 bg-cyan-700 text-gray-50 rounded-lg hover:bg-cyan-900 transition-colors text-xs"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3 h-3" />
                     Add Project
                   </button>
                 </div>
@@ -687,7 +687,7 @@ export function ContractorRegistration() {
                         <h4 className="text-sm font-medium text-gray-900">Project {index + 1}</h4>
                         <button
                           onClick={() => removeProject(index)}
-                          className="p-1 hover:bg-red-900/30 rounded text-red-500"
+                          className="p-1 hover:bg-cyan-900/30 rounded text-cyan-900"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -703,7 +703,7 @@ export function ContractorRegistration() {
                               newProjects[index].company = e.target.value;
                               setFormData({...formData, pastProjects: newProjects});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Company name"
                           />
                         </div>
@@ -717,7 +717,7 @@ export function ContractorRegistration() {
                               newProjects[index].role = e.target.value;
                               setFormData({...formData, pastProjects: newProjects});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Your role"
                           />
                         </div>
@@ -731,7 +731,7 @@ export function ContractorRegistration() {
                               newProjects[index].duration = e.target.value;
                               setFormData({...formData, pastProjects: newProjects});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="e.g., 6 months"
                           />
                         </div>
@@ -744,7 +744,7 @@ export function ContractorRegistration() {
                               newProjects[index].description = e.target.value;
                               setFormData({...formData, pastProjects: newProjects});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={3}
                             placeholder="Describe your work on this project"
                           />
@@ -755,7 +755,7 @@ export function ContractorRegistration() {
                   
                   {formData.pastProjects.length === 0 && (
                     <div className="text-center py-8 bg-white border border-gray-300 rounded-lg">
-                      <p className="text-gray-500 text-sm">No projects added yet</p>
+                      <p className="text-gray-500 text-xs font-medium">No projects added yet</p>
                     </div>
                   )}
                 </div>
@@ -767,9 +767,9 @@ export function ContractorRegistration() {
                   <label className="text-sm font-medium text-gray-700">Professional References</label>
                   <button
                     onClick={addReference}
-                    className="flex items-center gap-2 px-3 py-2 bg-[#36b0c9] text-gray-200 rounded-lg hover:bg-[#0E4665] transition-colors text-sm"
+                    className="flex items-center gap-2 px-3 py-2 bg-cyan-700 text-gray-50 rounded-lg hover:bg-cyan-900 transition-colors text-xs"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3 h-3" />
                     Add Reference
                   </button>
                 </div>
@@ -781,7 +781,7 @@ export function ContractorRegistration() {
                         <h4 className="text-sm font-medium text-gray-900">Reference {index + 1}</h4>
                         <button
                           onClick={() => removeReference(index)}
-                          className="p-1 hover:bg-red-900/30 rounded text-red-500"
+                          className="p-1 hover:bg-cyan-900/30 rounded text-cyan-900"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -797,7 +797,7 @@ export function ContractorRegistration() {
                               newRefs[index].name = e.target.value;
                               setFormData({...formData, references: newRefs});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Reference name"
                           />
                         </div>
@@ -811,7 +811,7 @@ export function ContractorRegistration() {
                               newRefs[index].company = e.target.value;
                               setFormData({...formData, references: newRefs});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Company name"
                           />
                         </div>
@@ -825,7 +825,7 @@ export function ContractorRegistration() {
                               newRefs[index].phone = e.target.value;
                               setFormData({...formData, references: newRefs});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="(555) 123-4567"
                           />
                         </div>
@@ -839,7 +839,7 @@ export function ContractorRegistration() {
                               newRefs[index].email = e.target.value;
                               setFormData({...formData, references: newRefs});
                             }}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="email@example.com"
                           />
                         </div>

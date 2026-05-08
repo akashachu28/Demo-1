@@ -1,5 +1,6 @@
 import { Calendar, AlertTriangle, Clock, CheckCircle, DollarSign } from "lucide-react";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 const upcomingRenewals = [
   { id: "1", contractor: "John Smith", license: "CA-12345", state: "California", expiryDate: "Apr 15, 2026", daysLeft: 23, cost: "$450", status: "pending" },
@@ -30,118 +31,167 @@ export function Renewals() {
   };
 
   const stats = [
-    { label: "Due in 30 Days", value: "27", icon: Clock, color: "orange" },
-    { label: "In Progress", value: "12", icon: AlertTriangle, color: "blue" },
-    { label: "Completed (30D)", value: "45", icon: CheckCircle, color: "green" },
-    { label: "Total Cost (30D)", value: "$18.4K", icon: DollarSign, color: "purple" },
+    { 
+      title: "Due in 30 Days", 
+      value: "27", 
+      change: "Action required",
+      icon: Clock, 
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-br from-yellow-50 via-yellow-50 to-yellow-100"
+    },
+    { 
+      title: "In Progress", 
+      value: "12", 
+      change: "Being processed",
+      icon: AlertTriangle, 
+      color: "text-blue-600",
+      bgColor: "bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100"
+    },
+    { 
+      title: "Completed (30D)", 
+      value: "45", 
+      change: "Successfully renewed",
+      icon: CheckCircle, 
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-br from-green-50 via-green-50 to-green-100"
+    },
+    { 
+      title: "Total Cost (30D)", 
+      value: "$18.4K", 
+      change: "Renewal expenses",
+      icon: DollarSign, 
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-br from-purple-50 via-purple-50 to-purple-100"
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader 
-        title="License Renewals"
-        subtitle="Track and manage contractor license renewals"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="License Renewals"
+          subtitle="Track and manage contractor license renewals"
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-600" />
-                  <p className="text-sm text-gray-600">{stat.label}</p>
-                </div>
-                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2 rounded-lg">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+              {stats.map((stat) => (
+                <Card
+                  key={stat.title}
+                  className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[16px] text-gray-700 mb-1">
+                        {stat.title}
+                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-gray-700">
+                          {stat.value}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
+                    </div>
+                    <div
+                      className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center`}
+                    >
+                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Upcoming Renewals */}
+            <Card className="bg-white border border-gray-200">
+              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Upcoming Renewals</h3>
+                <span className="text-sm text-gray-600">Next 90 days</span>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Upcoming Renewals */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Upcoming Renewals</h3>
-            <span className="text-sm text-gray-600">Next 90 days</span>
-          </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Days Left</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {upcomingRenewals.map((renewal) => {
-                  const statusConfig = getStatusConfig(renewal.status);
-                  return (
-                    <tr key={renewal.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-gray-500" />
-                          <span className="text-sm text-gray-700">{renewal.expiryDate}</span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-4">
-                        <span className={`text-sm font-medium ${
-                          renewal.daysLeft <= 30 ? 'text-red-600' : renewal.daysLeft <= 60 ? 'text-orange-600' : 'text-blue-600'
-                        }`}>
-                          {renewal.daysLeft} days
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
-                      <td className="px-4 py-4">
-                        <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${statusConfig.bg} ${statusConfig.color}`}>
-                          {statusConfig.label}
-                        </span>
-                      </td>
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Days Left</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {upcomingRenewals.map((renewal) => {
+                      const statusConfig = getStatusConfig(renewal.status);
+                      return (
+                        <tr key={renewal.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-4 h-4 text-gray-500" />
+                              <span className="text-sm text-gray-700">{renewal.expiryDate}</span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className={`text-sm font-medium ${
+                              renewal.daysLeft <= 30 ? 'text-red-600' : renewal.daysLeft <= 60 ? 'text-orange-600' : 'text-blue-600'
+                            }`}>
+                              {renewal.daysLeft} days
+                            </span>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
+                          <td className="px-4 py-4">
+                            <span className={`inline-flex px-3 py-1 rounded-md text-xs font-medium ${statusConfig.bg} ${statusConfig.color}`}>
+                              {statusConfig.label}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
 
-        {/* Recently Completed */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recently Completed</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Renewed Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">New Expiry</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {recentRenewals.map((renewal, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50">
-                    <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
-                    <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
-                    <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
-                    <td className="px-4 py-4 text-sm text-gray-700">{renewal.renewedDate}</td>
-                    <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
-                    <td className="px-4 py-4 text-sm text-green-600 font-medium">{renewal.newExpiry}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {/* Recently Completed */}
+            <Card className="bg-white border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Recently Completed</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">State</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Renewed Date</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cost</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">New Expiry</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {recentRenewals.map((renewal, idx) => (
+                      <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-4 text-sm text-gray-900 font-medium">{renewal.contractor}</td>
+                        <td className="px-4 py-4 text-sm text-gray-600">{renewal.license}</td>
+                        <td className="px-4 py-4 text-sm text-gray-600">{renewal.state}</td>
+                        <td className="px-4 py-4 text-sm text-gray-700">{renewal.renewedDate}</td>
+                        <td className="px-4 py-4 text-sm text-gray-700">{renewal.cost}</td>
+                        <td className="px-4 py-4 text-sm text-green-600 font-medium">{renewal.newExpiry}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
           </div>
         </div>
       </div>

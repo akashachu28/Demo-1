@@ -2,6 +2,7 @@ import { FileText, Upload, Download, Eye, CheckCircle, Clock, AlertCircle, X } f
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 const documents = [
   { id: "1", name: "License_CA_JohnSmith.pdf", contractor: "John Smith", type: "License", size: "2.4 MB", uploaded: "Mar 20, 2026", status: "approved" },
@@ -71,125 +72,172 @@ export function Documents() {
     }
   };
 
-  const stats = [
-    { label: "Total Documents", value: "1,847", icon: FileText },
-    { label: "Pending Review", value: "31", icon: Clock },
-    { label: "Approved", value: "1,789", icon: CheckCircle },
-    { label: "Uploaded Today", value: "23", icon: Upload },
+  const kpiData = [
+    {
+      title: "Total Documents",
+      value: "1,847",
+      change: "All files",
+      icon: FileText,
+      color: "text-blue-500",
+      bgColor: "bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100",
+    },
+    {
+      title: "Pending Review",
+      value: "31",
+      change: "Awaiting approval",
+      icon: Clock,
+      color: "text-orange-600",
+      bgColor: "bg-gradient-to-br from-orange-50 via-orange-50 to-orange-100",
+    },
+    {
+      title: "Approved",
+      value: "1,789",
+      change: "Verified documents",
+      icon: CheckCircle,
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-br from-green-50 via-green-50 to-green-100",
+    },
+    {
+      title: "Uploaded Today",
+      value: "23",
+      change: "New submissions",
+      icon: Upload,
+      color: "text-purple-600",
+      bgColor: "bg-gradient-to-br from-purple-50 via-purple-50 to-purple-100",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader 
-        title="Documents"
-        subtitle="Manage contractor documentation"
-        action={
-          <button 
-            onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
-          >
-            <Upload className="w-4 h-4" />
-            <span>Upload Document</span>
-          </button>
-        }
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Documents"
+          subtitle="Manage contractor documentation"
+          action={
+            <button 
+              onClick={() => setShowUploadModal(true)}
+              className="flex items-center text-sm gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
+            >
+              <Upload className="w-4 h-4" />
+              <span>Upload Document</span>
+            </button>
+          }
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-[#36B0C9]" />
-                  <p className="text-sm text-gray-600">{stat.label}</p>
-                </div>
-                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Documents by Type */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Documents by Type</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {documentsByType.map((doc) => (
-              <div key={doc.type} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <FileText className="w-5 h-5 text-[#36B0C9]" />
-                  <p className="text-sm font-medium text-gray-900">{doc.type}</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{doc.count}</p>
-                    <p className="text-xs text-gray-500">Total documents</p>
-                  </div>
-                  {doc.pending > 0 && (
-                    <div className="px-3 py-1 bg-orange-100 text-orange-600 text-xs rounded-full font-medium">
-                      {doc.pending} pending
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+              {kpiData.map((kpi) => (
+                <Card
+                  key={kpi.title}
+                  className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[16px] text-gray-700 mb-1">
+                        {kpi.title}
+                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-gray-700">
+                          {kpi.value}
+                        </p>
+                        <p className="text-xs text-gray-500">{kpi.change}</p>
+                      </div>
                     </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                    <div
+                      className={`w-12 h-12 ${kpi.bgColor} rounded-xl flex items-center justify-center`}
+                    >
+                      <kpi.icon className={`w-6 h-6 ${kpi.color}`} />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
 
-        {/* Recent Documents */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Documents</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Document</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Size</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Uploaded</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {documents.map((doc) => {
-                  const statusConfig = getStatusConfig(doc.status);
-                  const StatusIcon = statusConfig.icon;
-                  return (
-                    <tr key={doc.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-[#36B0C9]" />
-                          <span className="text-sm text-gray-900 font-medium">{doc.name}</span>
+            {/* Documents by Type */}
+            <Card className="p-6 bg-white border border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Documents by Type</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {documentsByType.map((doc) => (
+                  <div key={doc.type} className="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:bg-gray-100 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <FileText className="w-5 h-5 text-[#36B0C9]" />
+                      <p className="text-sm font-medium text-gray-900">{doc.type}</p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-gray-900">{doc.count}</p>
+                        <p className="text-xs text-gray-500">Total documents</p>
+                      </div>
+                      {doc.pending > 0 && (
+                        <div className="px-3 py-1 bg-orange-100 text-orange-600 text-xs rounded-full font-medium">
+                          {doc.pending} pending
                         </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm text-gray-700">{doc.contractor}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{doc.type}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{doc.size}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{doc.uploaded}</td>
-                      <td className="px-4 py-4">
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
-                          <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
-                          <span className={`text-xs font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2">
-                          <button className="p-1 hover:bg-gray-100 rounded">
-                            <Eye className="w-4 h-4 text-gray-500" />
-                          </button>
-                          <button className="p-1 hover:bg-gray-100 rounded">
-                            <Download className="w-4 h-4 text-gray-500" />
-                          </button>
-                        </div>
-                      </td>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Recent Documents */}
+            <Card className="p-6 bg-white border border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Documents</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="border-b border-gray-200">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Document</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Size</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Uploaded</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Actions</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {documents.map((doc) => {
+                      const statusConfig = getStatusConfig(doc.status);
+                      const StatusIcon = statusConfig.icon;
+                      return (
+                        <tr key={doc.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-4 py-4">
+                            <div className="flex items-center gap-2">
+                              <FileText className="w-4 h-4 text-[#36B0C9]" />
+                              <span className="text-sm text-gray-900 font-medium">{doc.name}</span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-700">{doc.contractor}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{doc.type}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{doc.size}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{doc.uploaded}</td>
+                          <td className="px-4 py-4">
+                            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
+                              <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
+                              <span className={`text-xs font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center gap-2">
+                              <button className="p-1 hover:bg-gray-100 rounded transition-colors">
+                                <Eye className="w-4 h-4 text-gray-500" />
+                              </button>
+                              <button className="p-1 hover:bg-gray-100 rounded transition-colors">
+                                <Download className="w-4 h-4 text-gray-500" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
           </div>
         </div>
       </div>

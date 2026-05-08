@@ -1,5 +1,6 @@
 import { Shield, CheckCircle, Clock, AlertTriangle, FileCheck } from "lucide-react";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 const credentials = [
   { id: "1", contractor: "John Smith", type: "Professional License", issuer: "CA State Board", status: "verified", issued: "Jan 15, 2024", expires: "Jan 15, 2027", verifiedDate: "Jan 20, 2024" },
@@ -27,10 +28,38 @@ export function Credentials() {
   };
 
   const stats = [
-    { label: "Total Credentials", value: "1,247", icon: FileCheck, color: "blue" },
-    { label: "Verified", value: "1,189", icon: CheckCircle, color: "green" },
-    { label: "Pending Review", value: "43", icon: Clock, color: "orange" },
-    { label: "Expiring (30D)", value: "15", icon: AlertTriangle, color: "red" },
+    { 
+      title: "Total Credentials", 
+      value: "1,247", 
+      change: "All credential types",
+      icon: FileCheck, 
+      color: "text-blue-500",
+      bgColor: "bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100"
+    },
+    { 
+      title: "Verified", 
+      value: "1,189", 
+      change: "Successfully verified",
+      icon: CheckCircle, 
+      color: "text-green-600",
+      bgColor: "bg-gradient-to-br from-green-50 via-green-50 to-green-100"
+    },
+    { 
+      title: "Pending Review", 
+      value: "43", 
+      change: "Awaiting verification",
+      icon: Clock, 
+      color: "text-yellow-600",
+      bgColor: "bg-gradient-to-br from-yellow-50 via-yellow-50 to-yellow-100"
+    },
+    { 
+      title: "Expiring (30D)", 
+      value: "15", 
+      change: "Requires renewal",
+      icon: AlertTriangle, 
+      color: "text-red-600",
+      bgColor: "bg-gradient-to-br from-red-50 via-red-50 to-red-100"
+    },
   ];
 
   const credentialTypes = [
@@ -42,94 +71,119 @@ export function Credentials() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader 
-        title="Credentials"
-        subtitle="Manage and verify contractor credentials"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Credentials"
+          subtitle="Manage and verify contractor credentials"
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label} className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-blue-600" />
-                  <p className="text-sm text-gray-600">{stat.label}</p>
-                </div>
-                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Credential Types */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Credentials by Type</h3>
-          <div className="space-y-4">
-            {credentialTypes.map((cred) => {
-              const percentage = (cred.verified / cred.count) * 100;
-              return (
-                <div key={cred.type} className="space-y-2">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2 rounded-lg">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+              {stats.map((stat) => (
+                <Card
+                  key={stat.title}
+                  className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow"
+                >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">{cred.type}</span>
-                    <span className="text-sm text-gray-900 font-medium">{cred.verified}/{cred.count} verified</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div>
+                      <p className="text-[16px] text-gray-700 mb-1">
+                        {stat.title}
+                      </p>
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-3xl font-bold text-gray-700">
+                          {stat.value}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
+                    </div>
                     <div
-                      className={`h-2 rounded-full ${
-                        percentage >= 95 ? 'bg-green-500' : percentage >= 85 ? 'bg-blue-500' : 'bg-orange-500'
-                      }`}
-                      style={{ width: `${percentage}%` }}
-                    />
+                      className={`w-12 h-12 ${stat.bgColor} rounded-xl flex items-center justify-center`}
+                    >
+                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                </Card>
+              ))}
+            </div>
 
-        {/* Credentials Table */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Credential Records</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-gray-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Issuer</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Issued</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Verified</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {credentials.map((credential) => {
-                  const statusConfig = getStatusConfig(credential.status);
-                  const StatusIcon = statusConfig.icon;
-                  return (
-                    <tr key={credential.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-4 text-sm text-gray-900 font-medium">{credential.contractor}</td>
-                      <td className="px-4 py-4 text-sm text-gray-700">{credential.type}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{credential.issuer}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{credential.issued}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{credential.expires}</td>
-                      <td className="px-4 py-4 text-sm text-gray-600">{credential.verifiedDate}</td>
-                      <td className="px-4 py-4">
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bg}`}>
-                          <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
-                          <span className={`text-xs font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
+            {/* Credential Types */}
+            <Card className="bg-white border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Credentials by Type</h3>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  {credentialTypes.map((cred) => {
+                    const percentage = (cred.verified / cred.count) * 100;
+                    return (
+                      <div key={cred.type} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-700">{cred.type}</span>
+                          <span className="text-sm text-gray-900 font-medium">{cred.verified}/{cred.count} verified</span>
                         </div>
-                      </td>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className={`h-2 rounded-full ${
+                              percentage >= 95 ? 'bg-green-500' : percentage >= 85 ? 'bg-blue-500' : 'bg-orange-500'
+                            }`}
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Card>
+
+            {/* Credentials Table */}
+            <Card className="bg-white border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Credential Records</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contractor</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Issuer</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Issued</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Verified</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {credentials.map((credential) => {
+                      const statusConfig = getStatusConfig(credential.status);
+                      const StatusIcon = statusConfig.icon;
+                      return (
+                        <tr key={credential.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="px-4 py-4 text-sm text-gray-900 font-medium">{credential.contractor}</td>
+                          <td className="px-4 py-4 text-sm text-gray-700">{credential.type}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{credential.issuer}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{credential.issued}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{credential.expires}</td>
+                          <td className="px-4 py-4 text-sm text-gray-600">{credential.verifiedDate}</td>
+                          <td className="px-4 py-4">
+                            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-md ${statusConfig.bg}`}>
+                              <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
+                              <span className={`text-xs font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
