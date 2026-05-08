@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { Eye, EyeOff, Lock, User, AlertCircle } from 'lucide-react';
 import renuityLogo from "../../../assets/renuityLogo.svg";
 import backgroundImg from '../../../assets/bgAS.avif';
+import { useAuth } from '../contexts/AuthContext';
 
 export function Login() {
   const [email, setEmail] = useState('');
