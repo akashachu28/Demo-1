@@ -436,27 +436,20 @@ export function ContractorRegistration() {
   };
 
   return (
-    <div className="h-full bg-gray-50">
-      {/* Header */}
-      <PageHeader 
-        title="Contractor Registration"
-        subtitle="Complete all required information to register as a contractor"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Contractor Registration"
+          subtitle="Complete all required information to register as a contractor"
+        />
 
-      {/* Breadcrumb */}
-      {/* <div className="bg-white border-b border-gray-200 px-8 py-3 shadow-xs">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <button onClick={() => navigate('/contractors')} className="hover:text-gray-900 transition-colors">
-            Contractors
-          </button>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">New Registration</span>
-        </div>
-      </div> */}
-
-      <div className="max-w-6xl mx-auto p-8">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2">
+            <div className="max-w-6xl mx-auto">
         {/* Progress Tabs */}
-        <div className="mb-8">
+        <div className="mb-6">
           {/* Progress Bar */}
           <div className="relative mb-6">
             <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200"></div>
@@ -1561,6 +1554,9 @@ export function ContractorRegistration() {
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}
+          </div>
+        </div>
+            </div>
           </div>
         </div>
       </div>

@@ -309,118 +309,111 @@ export function ContractorRegistration() {
   };
 
   return (
-    <div className="h-full bg-gray-50">
-      {/* Header */}
-      <PageHeader 
-        title="Contractor Registration"
-        subtitle="Complete all required information to register as a contractor"
-      />
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader 
+          title="Contractor Registration"
+          subtitle="Complete all required information to register as a contractor"
+        />
 
-      {/* Breadcrumb */}
-      {/* <div className="bg-white border-b border-gray-200 px-8 py-3 shadow-xs">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <button onClick={() => navigate('/contractors')} className="hover:text-gray-900 transition-colors">
-            Contractors
-          </button>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">New Registration</span>
-        </div>
-      </div> */}
-
-      <div className="max-w-6xl mx-auto p-8">
-        {/* Progress Tabs */}
-        <div className="mb-8">
-          {/* Progress Bar */}
-          <div className="relative mb-6">
-            <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200"></div>
-            <div 
-              className="absolute top-4 left-0 h-0.5 bg-[#36b0c9] transition-all duration-300"
-              style={{ width: `${(completedTabs.length / tabs.length) * 100}%` }}
-            ></div>
-          </div>
-
-          {/* Tab Navigation */}
-          <div className="flex items-center justify-between">
-            {tabs.map((tab, index) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              const isCompleted = completedTabs.includes(tab.id);
-              
-              return (
-                <div key={tab.id} className="flex flex-col items-center relative">
-                  {/* Step Circle */}
-                  <button
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
-                      isActive 
-                        ? "bg-[#36b0c9] text-white shadow-lg scale-110" 
-                        : isCompleted
-                        ? "bg-green-500 text-white shadow-md"
-                        : "bg-white text-gray-400 border-2 border-gray-200 hover:border-[#36b0c9] hover:text-[#36b0c9]"
-                    }`}
-                  >
-                    {isCompleted && !isActive ? (
-                      <CheckCircle className="w-5 h-5" />
-                    ) : (
-                      <Icon className="w-4 h-4" />
-                    )}
-                  </button>
-
-                  {/* Step Label */}
-                  <div className="mt-3 text-center">
-                    <p className={`text-xs font-medium transition-colors ${
-                      isActive 
-                        ? "text-[#36b0c9]" 
-                        : isCompleted 
-                        ? "text-green-600" 
-                        : "text-gray-500"
-                    }`}>
-                      Step {index + 1}
-                    </p>
-                    <p className={`text-sm font-medium mt-1 transition-colors ${
-                      isActive 
-                        ? "text-gray-900" 
-                        : isCompleted 
-                        ? "text-gray-700" 
-                        : "text-gray-500"
-                    }`}>
-                      {tab.label}
-                    </p>
-                  </div>
-
-                  {/* Active Step Indicator */}
-                  {isActive && (
-                    <div className="absolute -bottom-2 w-2 h-2 bg-[#36b0c9] rounded-full animate-pulse"></div>
-                  )}
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2">
+            <div className="max-w-6xl mx-auto">
+              {/* Progress Tabs */}
+              <div className="mb-6">
+                {/* Progress Bar */}
+                <div className="relative mb-6">
+                  <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200"></div>
+                  <div 
+                    className="absolute top-4 left-0 h-0.5 bg-[#36b0c9] transition-all duration-300"
+                    style={{ width: `${(completedTabs.length / tabs.length) * 100}%` }}
+                  ></div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Form Content */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
-          {/* General Info Tab */}
-          {activeTab === "general" && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">General Information</h2>
-                <p className="text-sm text-gray-600">Please provide your basic personal information</p>
+                {/* Tab Navigation */}
+                <div className="flex items-center justify-between">
+                  {tabs.map((tab, index) => {
+                    const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
+                    const isCompleted = completedTabs.includes(tab.id);
+                    
+                    return (
+                      <div key={tab.id} className="flex flex-col items-center relative">
+                        {/* Step Circle */}
+                        <button
+                          onClick={() => setActiveTab(tab.id)}
+                          className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
+                            isActive 
+                              ? "bg-[#36b0c9] text-white shadow-lg scale-110" 
+                              : isCompleted
+                              ? "bg-green-500 text-white shadow-md"
+                              : "bg-white text-gray-400 border-2 border-gray-200 hover:border-[#36b0c9] hover:text-[#36b0c9]"
+                          }`}
+                        >
+                          {isCompleted && !isActive ? (
+                            <CheckCircle className="w-5 h-5" />
+                          ) : (
+                            <Icon className="w-4 h-4" />
+                          )}
+                        </button>
+
+                        {/* Step Label */}
+                        <div className="mt-3 text-center">
+                          <p className={`text-xs font-medium transition-colors ${
+                            isActive 
+                              ? "text-[#36b0c9]" 
+                              : isCompleted 
+                              ? "text-green-600" 
+                              : "text-gray-500"
+                          }`}>
+                            Step {index + 1}
+                          </p>
+                          <p className={`text-sm font-medium mt-1 transition-colors ${
+                            isActive 
+                              ? "text-gray-900" 
+                              : isCompleted 
+                              ? "text-gray-700" 
+                              : "text-gray-500"
+                          }`}>
+                            {tab.label}
+                          </p>
+                        </div>
+
+                        {/* Active Step Indicator */}
+                        {isActive && (
+                          <div className="absolute -bottom-2 w-2 h-2 bg-[#36b0c9] rounded-full animate-pulse"></div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Enter first name"
-                  />
-                </div>
+              {/* Form Content */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
+                {/* General Info Tab */}
+                {activeTab === "general" && (
+            <div className="space-y-6">
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-900 mb-2">General Information</h2>
+                      <p className="text-sm text-gray-600">Please provide your basic personal information</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          First Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.firstName}
+                          onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                          className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Enter first name"
+                        />
+                      </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1333,6 +1326,9 @@ export function ContractorRegistration() {
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}
+          </div>
+        </div>
+            </div>
           </div>
         </div>
       </div>

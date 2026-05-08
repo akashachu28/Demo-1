@@ -16,6 +16,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { PageHeader } from "../../layout/components/PageHeader";
+import { Card } from "../../../components/ui/card";
 
 export function ContractorProfile() {
   const { id } = useParams();
@@ -46,19 +47,19 @@ export function ContractorProfile() {
   const complianceSummary = [
     {
       icon: CheckCircle,
-      color: "text-green-600",
+      color: "text-green-400",
       title: "Fully compliant in Texas",
       subtitle: "All requirements met • 100% confidence"
     },
     {
       icon: AlertTriangle,
-      color: "text-orange-600",
+      color: "text-orange-400",
       title: "COI expiring in 12 days",
       subtitle: "Action required • Certificate #COI-2024-456"
     },
     {
       icon: XCircle,
-      color: "text-red-600",
+      color: "text-red-400",
       title: "Missing Workers' Comp in California",
       subtitle: "Blocking assignment • Required since Jan 2024"
     }
@@ -134,192 +135,141 @@ export function ContractorProfile() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PageHeader
-              title="Contractors"
-              subtitle="Manage all contractor profiles and licenses"
-              
-            />
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200 px-8 py-3">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <button onClick={() => navigate('/contractors')} className="hover:text-gray-900">
-            Contractors
-          </button>
-          <ChevronRight className="w-4 h-4" />
-          <span>Profile</span>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">{contractor.name}</span>
-        </div>
-      </div>
+    <div className="h-full flex flex-col bg-gray-50 px-1">
+      {/* Fixed Header */}
+      <div className="h-full flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <PageHeader
+          title={contractor.name}
+          subtitle={`${contractor.company} • ${contractor.license}`}
+        />
 
-      <div className="p-8 space-y-6">
-        {/* Header Card */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex gap-4">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-600">
-                {contractor.name.split(' ').map(n => n[0]).join('')}
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-2xl font-bold text-gray-900">{contractor.name}</h1>
-                  
-                </div>
-                <p className="text-gray-600">{contractor.company}</p>
-                <p className="text-sm text-gray-500">{contractor.type} • {contractor.license}</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              
-              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                <Download className="w-4 h-4" />
-                <span>Download Report</span>
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-                <Ban className="w-4 h-4" />
-                <span>Block Contractor</span>
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                <Edit className="w-4 h-4" />
-                <span>Edit Profile</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-4 gap-6 mb-4">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-400" />
-              <div>
-                <p className="text-xs text-gray-500">{contractor.licenseId}</p>
-                <p className="text-sm font-medium text-gray-900">Licensed Contractor</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-400" />
-              <div>
-                <p className="text-xs text-gray-500">{contractor.state}</p>
-                <p className="text-sm font-medium text-gray-900">Primary Jurisdiction</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-400" />
-              <div>
-                <p className="text-xs text-gray-500">{contractor.phone}</p>
-                <p className="text-sm font-medium text-gray-900">{contractor.phoneLabel}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-400" />
-              <div>
-                <p className="text-xs text-gray-500">{contractor.expires}</p>
-                <p className="text-sm font-medium text-gray-900">{contractor.expiresLabel}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-            
-            <p className="text-xs text-gray-500">
-              Last AI Analysis: {contractor.lastAnalysis} • Profile Created: {contractor.profileCreated} • Last Updated: {contractor.lastUpdate}
-            </p>
-          </div>
-        </div>
-
-        {/* AI Compliance Summary */}
-        <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-200 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-orange-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Compliance Summary</h2>
-              <span className="text-sm text-gray-500">Generated 2 hours ago</span>
-            </div>
-          </div>
-
-          <div className="space-y-3 mb-4">
-            {complianceSummary.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={index} className="flex items-start gap-3">
-                  <Icon className={`w-5 h-5 ${item.color} mt-0.5`} />
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="space-y-2 p-2">
+            {/* Overview Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+              <Card className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900">{item.title}</p>
-                    <p className="text-sm text-gray-600">{item.subtitle}</p>
+                    <p className="text-sm text-gray-600 mb-1">Trust Score</p>
+                    <p className="text-3xl font-bold text-gray-900">{contractor.trustScore}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </Card>
 
-          <div className="flex items-center justify-between pt-4 border-t border-orange-200">
-            <div>
-              <p className="text-sm font-medium text-gray-900 mb-1">Overall Risk Assessment</p>
-              <p className="text-sm text-gray-600">
-                This contractor is eligible for work in 3 jurisdictions.
-                <br />1 blocking issue prevents California assignments.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors">
-                Request COI Renewal
-              </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors">
-                Review CA Requirements
-              </button>
-              
-            </div>
-          </div>
-          <p className="text-xs text-gray-500 mt-2">Powered by Compliance AI Engine v1.1</p>
-        </div>
+              <Card className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">AI Risk Score</p>
+                    <p className="text-3xl font-bold text-gray-900">{contractor.aiRiskScore}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-orange-600" />
+                  </div>
+                </div>
+              </Card>
 
-        {/* Tabs */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-          <div className="border-b border-gray-200 px-6">
-            <div className="flex gap-6">
-              {['Overview', 'Licenses (5)', 'Documents (12)', 'Compliance', 'Insurance', 'Retainer', 'Activity', 'Settings'].map((tab) => (
-                <button
-                  key={tab}
-                  className={`py-4 text-sm font-medium border-b-2 ${
-                    tab === 'Overview' 
-                      ? 'border-blue-600 text-blue-600' 
-                      : 'border-transparent text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-          </div>
+              <Card className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Active Licenses</p>
+                    <p className="text-3xl font-bold text-gray-900">5</p>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+              </Card>
 
-          <div className="p-6">
-            <div className="grid grid-cols-3 gap-6">
+              <Card className="p-6 bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Next Renewal</p>
+                    <p className="text-xl font-bold text-gray-900">{contractor.expires}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center">
+                    <AlertTriangle className="w-6 h-6 text-purple-600" />
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* AI Compliance Summary */}
+            <Card className="p-6 bg-gradient-to-r from-sky-900 to-cyan-800 ">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg font-semibold text-white">Compliance Summary</h2>
+                  <span className="text-sm text-gray-300">Generated 2 hours ago</span>
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-4">
+                {complianceSummary.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="flex items-start gap-3">
+                      <Icon className={`w-5 h-5 ${item.color} mt-0.5`} />
+                      <div>
+                        <p className="font-medium text-white">{item.title}</p>
+                        <p className="text-sm text-gray-300">{item.subtitle}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center justify-between pt-4 border-t border-sky-200">
+                <div>
+                  <p className="text-sm font-medium text-white mb-1">Overall Risk Assessment</p>
+                  <p className="text-sm text-gray-300">
+                    This contractor is eligible for work in 3 jurisdictions.
+                    <br />1 blocking issue prevents California assignments.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-cyan-600 text-white text-sm rounded-lg hover:bg-cyan-700 transition-colors">
+                    Request COI Renewal
+                  </button>
+                  <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors">
+                    Review CA Requirements
+                  </button>
+                </div>
+              </div>
+              <p className="text-xs text-gray-400 mt-2">Powered by Compliance AI Engine v1.1</p>
+            </Card>
+
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
               {/* Compliance Snapshot */}
-              <div>
+              <Card className="p-6 bg-white border border-gray-200">
                 <h3 className="text-sm font-semibold text-gray-900 mb-4">Compliance Snapshot</h3>
                 <div className="space-y-2">
                   {complianceStats.map((stat, index) => (
-                    <div key={index} className="p-2 bg-white border border-gray-200 shadow-xs rounded-lg">
-                      <p className="text-xl font-bold text-gray-900">{stat.value}</p>
+                    <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                      <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
                       <p className={`text-sm ${stat.color}`}>{stat.label}</p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 p-3 bg-green-50 rounded-lg">
+                <div className="mt-4 p-3 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
                   <p className="text-sm font-medium text-gray-900">Overall Status</p>
                   <p className="text-xs text-gray-600">Was Compliant • Changed 7 days ago</p>
                   <span className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
                     At Risk
                   </span>
                 </div>
-              </div>
+              </Card>
 
               {/* Jurisdiction Coverage */}
-              <div>
+              <Card className="p-6 bg-white border border-gray-200">
                 <h3 className="text-sm font-semibold text-gray-900 mb-4">Jurisdiction Coverage</h3>
                 <p className="text-xs text-gray-500 mb-3">Active in 37% Coverage</p>
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {jurisdictions.map((jurisdiction, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
                       <div>
                         <p className="text-sm font-medium text-gray-900">{jurisdiction.state}</p>
                         <p className="text-xs text-gray-500">{jurisdiction.detail}</p>
@@ -339,10 +289,10 @@ export function ContractorProfile() {
                   <span>View All Jurisdictions</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
-              </div>
+              </Card>
 
               {/* Quick Actions */}
-              <div>
+              <Card className="p-6 bg-white border border-gray-200">
                 <h3 className="text-sm font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-2">
                   {quickActions.map((action, index) => {
@@ -350,7 +300,7 @@ export function ContractorProfile() {
                     return (
                       <button
                         key={index}
-                        className="w-full flex items-start gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-left"
+                        className="w-full flex items-start gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-colors text-left"
                       >
                         <Icon className={`w-5 h-5 ${action.color} mt-0.5`} />
                         <div>
@@ -363,67 +313,67 @@ export function ContractorProfile() {
                     );
                   })}
                 </div>
-              </div>
+              </Card>
             </div>
-          </div>
-        </div>
 
-        {/* Activity Timeline */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Activity Timeline</h2>
-              <p className="text-sm text-gray-500">Recent events and compliance history</p>
-            </div>
-            <button className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
-              <span>View Full Timeline</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {activities.map((activity, index) => {
-              const Icon = activity.icon;
-              return (
-                <div key={index} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-blue-600" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm font-medium text-gray-900">{activity.title}</p>
-                          {activity.badge && (
-                            <span className={`px-2 py-0.5 ${activity.badgeColor} text-xs font-medium rounded`}>
-                              {activity.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1">{activity.subtitle}</p>
-                        <p className="text-xs text-gray-500 mt-1">{activity.detail}</p>
-                      </div>
-                      <button className="text-sm text-blue-600 hover:text-blue-700">
-                        {activity.action}
-                      </button>
-                    </div>
-                  </div>
+            {/* Activity Timeline */}
+            <Card className="p-6 bg-white border border-gray-200">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">Activity Timeline</h2>
+                  <p className="text-sm text-gray-500">Recent events and compliance history</p>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+                <button className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
+                  <span>View Full Timeline</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
 
-        {/* Bottom Stats */}
-        <div className="grid grid-cols-5 gap-4">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
-              <p className="text-xs text-gray-500 mb-1">{stat.label}</p>
-              <p className={`text-lg font-semibold ${stat.color || 'text-gray-900'}`}>{stat.value}</p>
+              <div className="space-y-4">
+                {activities.map((activity, index) => {
+                  const Icon = activity.icon;
+                  return (
+                    <div key={index} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center">
+                          <Icon className="w-5 h-5 text-blue-600" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-medium text-gray-900">{activity.title}</p>
+                              {activity.badge && (
+                                <span className={`px-2 py-0.5 ${activity.badgeColor} text-xs font-medium rounded`}>
+                                  {activity.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">{activity.subtitle}</p>
+                            <p className="text-xs text-gray-500 mt-1">{activity.detail}</p>
+                          </div>
+                          <button className="text-sm text-blue-600 hover:text-blue-700">
+                            {activity.action}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* Bottom Stats */}
+            <div className="grid grid-cols-5 gap-2">
+              {stats.map((stat, index) => (
+                <Card key={index} className="p-4 bg-white border border-gray-200">
+                  <p className="text-xs text-gray-500 mb-1">{stat.label}</p>
+                  <p className={`text-lg font-semibold ${stat.color || 'text-gray-900'}`}>{stat.value}</p>
+                </Card>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>

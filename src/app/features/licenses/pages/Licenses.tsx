@@ -127,7 +127,7 @@ export function Licenses() {
                 onClick={(e) => { e.preventDefault(); setActiveTab('all'); }}
                 className="block"
               >
-                <Card className={`p-6 bg-white border border-gray-200 cursor-pointer transition-all hover:shadow-lg ${activeTab === 'all' ? 'border-none ring-1 ring-gray-300' : ''}`}>
+                <Card className={`p-6 bg-white border border-gray-200 cursor-pointer transition-all hover:shadow-lg ${activeTab === 'all' ? 'bg-gradient-to-b from-gray-50 to-gray-100 border-none ring-1 ring-gray-300' : ''}`}>
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
                       <Award className="w-6 h-6 text-blue-600" />

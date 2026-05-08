@@ -92,6 +92,14 @@ export const router = createBrowserRouter([
         )
       },
       { 
+        path: "contractors/review/:id", 
+        element: (
+          <AccessControl requiredAccess={[ACCESS_LEVELS.CONTRACTORS_REGISTER, ACCESS_LEVELS.CONTRACTORS]}>
+            <DummyRegistration />
+          </AccessControl>
+        )
+      },
+      { 
         path: "contractors/register", 
         element: (
           <AccessControl requiredAccess={[ACCESS_LEVELS.CONTRACTORS_REGISTER, ACCESS_LEVELS.CONTRACTORS]}>
