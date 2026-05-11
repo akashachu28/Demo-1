@@ -65,19 +65,19 @@ export function SystemRules() {
                         <div className="absolute left-0 mt-1 w-48 bg-white shadow-lg border border-gray-200 py-1 px-1 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                           <button
                             onClick={() => setSelectedState('California')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm  text-sm hover:bg-gray-50 transition-colors ${selectedState === 'California' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm  text-sm hover:bg-gray-50 transition-colors ${selectedState === 'California' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             California
                           </button>
                           <button
                             onClick={() => setSelectedState('Texas')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedState === 'Texas' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedState === 'Texas' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Texas
                           </button>
                           <button
                             onClick={() => setSelectedState('Florida')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedState === 'Florida' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedState === 'Florida' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Florida
                           </button>
@@ -93,13 +93,13 @@ export function SystemRules() {
                         <div className="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                           <button
                             onClick={() => setSelectedCounty('Los Angeles')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCounty === 'Los Angeles' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCounty === 'Los Angeles' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Los Angeles
                           </button>
                           <button
                             onClick={() => setSelectedCounty('Orange')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCounty === 'Orange' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCounty === 'Orange' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Orange
                           </button>
@@ -115,13 +115,13 @@ export function SystemRules() {
                         <div className="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                           <button
                             onClick={() => setSelectedCity('Los Angeles')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCity === 'Los Angeles' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCity === 'Los Angeles' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Los Angeles
                           </button>
                           <button
                             onClick={() => setSelectedCity('Santa Monica')}
-                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCity === 'Santa Monica' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                            className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${selectedCity === 'Santa Monica' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                           >
                             Santa Monica
                           </button>
@@ -156,7 +156,7 @@ export function SystemRules() {
                         </div>
                         <div className="flex items-center gap-2">
                           {rule.id === 1 && (
-                            <button className="px-3 py-1 text-sm text-blue-600 bg-blue-50 rounded hover:bg-blue-100 transition-colors">
+                            <button className="px-3 py-1 text-sm text-cyan-600 bg-cyan-50 rounded hover:bg-cyan-100 transition-colors">
                               New Rule
                             </button>
                           )}
@@ -181,7 +181,7 @@ export function SystemRules() {
                                       <ChevronDown className="w-3.5 h-3.5" />
                                     </button>
                                     <div className="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                                      <button className="w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors text-blue-600 bg-blue-50">
+                                      <button className="w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors text-cyan-600 bg-cyan-50">
                                         {condition.field}
                                       </button>
                                     </div>
@@ -195,7 +195,7 @@ export function SystemRules() {
                                           <ChevronDown className="w-3.5 h-3.5" />
                                         </button>
                                         <div className="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                                          <button className="w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors text-blue-600 bg-blue-50">
+                                          <button className="w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors text-cyan-600 bg-cyan-50">
                                             {condition.value}
                                           </button>
                                         </div>
@@ -219,11 +219,11 @@ export function SystemRules() {
                             )}
 
                             {/* Then Action */}
-                            <div className="flex items-center gap-2 ml-12">
+                              <div className="flex items-center gap-2 ml-12">
                               <div className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm text-gray-700">
                                 {rule.then}
                               </div>
-                              <button className="p-1.5 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors">
+                              <button className="p-1.5 bg-cyan-50 text-cyan-600 rounded hover:bg-cyan-100 transition-colors">
                                 <Plus className="w-4 h-4" />
                               </button>
                             </div>
@@ -240,7 +240,7 @@ export function SystemRules() {
                                       type="checkbox" 
                                       checked={validation.checked}
                                       onChange={() => {}}
-                                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                      className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
                                     />
                                     <span className="text-sm text-gray-700">{validation.label}</span>
                                   </label>
@@ -256,7 +256,7 @@ export function SystemRules() {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-2">
-                  <button className="text-sm text-blue-600 underline  hover:text-blue-700 transition-colors">
+                  <button className="text-sm text-cyan-600 underline  hover:text-cyan-700 transition-colors">
                     View Audit Logs
                   </button>
                   <p className="text-xs text-gray-500">
@@ -325,10 +325,9 @@ export function SystemRules() {
                       </div>
                     </div>
 
-                    <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-sky-900 text-white rounded-lg hover:bg-sky-800 transition-colors">
+                    <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors">
                       <TrendingUp className="w-4 h-4" />
                       <span className="text-sm font-medium">Simulate with Data</span>
-                      <span>→</span>
                     </button>
                   </div>
                 </Card>

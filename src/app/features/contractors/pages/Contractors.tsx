@@ -48,7 +48,7 @@ export function Contractors() {
           action={
             <button 
               onClick={() => navigate('/contractors/register')}
-              className="flex items-center text-sm gap-2 px-4 py-2 bg-[#012542] text-white rounded-lg hover:bg-[#063253] transition-colors"
+              className="flex items-center text-sm gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
             >
               <UserPlus className="w-4 h-4" />
               <span>Add Contractor</span>
@@ -162,22 +162,22 @@ export function Contractors() {
                     placeholder="Search contractors..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-colors"
+                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent focus:bg-white transition-colors"
                   />
                 </div>
 
                 <div className="flex items-center gap-2">
                   {/* State Filter */}
                   <div className="relative group">
-                    <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1.5 border border-transparent hover:border-gray-200">
+                    <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1.5 border border-gray-200 hover:border-gray-200">
                       <MapPin className="w-4 h-4" />
                       <span className="hidden sm:inline">{stateFilter === 'all' ? 'State' : stateFilter}</span>
                       <ChevronDown className="w-3.5 h-3.5" />
                     </button>
-                    <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                    <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 px-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                       <button
                         onClick={() => setStateFilter('all')}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${stateFilter === 'all' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                        className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${stateFilter === 'all' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                       >
                         All States
                       </button>
@@ -185,7 +185,7 @@ export function Contractors() {
                         <button
                           key={state}
                           onClick={() => setStateFilter(state)}
-                          className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${stateFilter === state ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                          className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${stateFilter === state ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
                         >
                           {state}
                         </button>
@@ -194,7 +194,7 @@ export function Contractors() {
                   </div>
 
                   {/* Export Button */}
-                  <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1.5 border border-transparent hover:border-gray-200">
+                  <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1.5 border border-gray-200 hover:border-gray-200">
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Export</span>
                   </button>

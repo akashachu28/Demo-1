@@ -1303,7 +1303,7 @@ export function ContractorRegistration() {
             {activeTab !== "general" && (
               <button
                 onClick={handlePrevious}
-                className="flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2  rounded-lg gap-2 flex items-center text-sm text-gray-700 bg-gray-100 hover:bg-gray-200"
               >
                 <ChevronLeft className="w-4 h-4" />
                 Previous
@@ -1312,7 +1312,7 @@ export function ContractorRegistration() {
 
             {activeTab === "disclosure" ? (
               <button
-                className="flex items-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="px-4 py-2 rounded-lg gap-2 flex items-center text-sm text-white bg-green-600 hover:bg-green-700"
               >
                 <CheckCircle className="w-5 h-5" />
                 Submit Registration
@@ -1320,7 +1320,7 @@ export function ContractorRegistration() {
             ) : (
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 rounded-lg gap-2 flex items-center text-sm text-white bg-cyan-600 hover:bg-cyan-700"
               >
                 Next
                 <ChevronRight className="w-4 h-4" />

@@ -1,4 +1,4 @@
-import { Activity, User, FileText, Shield, Clock, Filter } from "lucide-react";
+import { Activity, User, FileText, Shield, Clock, Filter, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { PageHeader } from "../../layout/components/PageHeader";
 import { Card } from "../../../components/ui/card";
@@ -137,20 +137,71 @@ export function AuditTrail() {
             <Card className="p-4 bg-white border border-gray-200">
               <div className="flex items-center gap-4">
                 <Filter className="w-5 h-5 text-gray-500" />
-                <select
-                  value={filterType}
-                  onChange={(e) => setFilterType(e.target.value)}
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="all">All Events</option>
-                  <option value="verification">Verifications</option>
-                  <option value="document">Documents</option>
-                  <option value="contractor">Contractors</option>
-                  <option value="compliance">Compliance</option>
-                  <option value="renewal">Renewals</option>
-                  <option value="auth">Authentication</option>
-                  <option value="settings">Settings</option>
-                </select>
+                <div className="relative group">
+                  <button className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-1.5 border border-gray-200 hover:border-gray-300">
+                    <span>
+                      {filterType === "all" ? "All Events" :
+                       filterType === "verification" ? "Verifications" :
+                       filterType === "document" ? "Documents" :
+                       filterType === "contractor" ? "Contractors" :
+                       filterType === "compliance" ? "Compliance" :
+                       filterType === "renewal" ? "Renewals" :
+                       filterType === "auth" ? "Authentication" :
+                       filterType === "settings" ? "Settings" : "All Events"}
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                  <div className="absolute left-0 mt-1 w-48 bg-white shadow-lg border border-gray-200 py-1 px-1 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                    <button
+                      onClick={() => setFilterType('all')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'all' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      All Events
+                    </button>
+                    <button
+                      onClick={() => setFilterType('verification')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'verification' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Verifications
+                    </button>
+                    <button
+                      onClick={() => setFilterType('document')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'document' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Documents
+                    </button>
+                    <button
+                      onClick={() => setFilterType('contractor')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'contractor' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Contractors
+                    </button>
+                    <button
+                      onClick={() => setFilterType('compliance')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'compliance' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Compliance
+                    </button>
+                    <button
+                      onClick={() => setFilterType('renewal')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'renewal' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Renewals
+                    </button>
+                    <button
+                      onClick={() => setFilterType('auth')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'auth' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Authentication
+                    </button>
+                    <button
+                      onClick={() => setFilterType('settings')}
+                      className={`w-full text-left px-3 py-1.5 rounded-sm text-sm hover:bg-gray-50 transition-colors ${filterType === 'settings' ? 'text-cyan-600 bg-cyan-50' : 'text-gray-700'}`}
+                    >
+                      Settings
+                    </button>
+                  </div>
+                </div>
                 <span className="text-sm text-gray-600">
                   Showing {filteredLogs.length} of {auditLogs.length} events
                 </span>

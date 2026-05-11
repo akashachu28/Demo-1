@@ -244,9 +244,9 @@ export function Layout() {
                 onClick={() => setShowNotifications(!showNotifications)}
                 className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                <Bell className="w-6 h-6 text-[#0E4665]" />
+                <Bell className="w-5 h-5 text-gray-600" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-0 right-0 w-5 h-5 bg-[#0E4665] text-white text-xs rounded-full flex items-center justify-center font-medium">
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-cyan-600 text-white text-[10px] rounded-full flex items-center justify-center font-medium">
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
@@ -256,51 +256,58 @@ export function Layout() {
               {showNotifications && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-96 overflow-hidden">
                   {/* Header */}
-                  <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+                  <div className="px-4 py-3 border-b border-gray-200">
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
                       {unreadCount > 0 && (
-                        <span className="text-xs text-blue-600 font-medium">{unreadCount} new</span>
+                        <span className="text-xs text-cyan-600 font-medium">{unreadCount} new</span>
                       )}
                     </div>
                   </div>
 
                   {/* Notifications List */}
-                  <div className="max-h-80 overflow-y-auto">
+                  <div className="max-h-80 overflow-y-auto custom-scrollbar">
                     {notifications.map((notification) => (
                       <div
                         key={notification.id}
                         className={`px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors ${
-                          notification.unread ? 'bg-blue-50' : ''
+                          notification.unread ? 'bg-cyan-50/30' : ''
                         }`}
                         onClick={() => {
                           setShowNotifications(false);
                         }}
                       >
                         <div className="flex items-start gap-3">
-                          {/* Notification Type Indicator */}
-                          <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                            notification.type === 'warning' ? 'bg-yellow-500' :
-                            notification.type === 'error' ? 'bg-red-500' :
-                            notification.type === 'success' ? 'bg-green-500' :
-                            'bg-blue-500'
-                          }`}></div>
+                          {/* Notification Icon */}
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            notification.type === 'warning' ? 'bg-yellow-100' :
+                            notification.type === 'error' ? 'bg-red-100' :
+                            notification.type === 'success' ? 'bg-green-100' :
+                            'bg-cyan-100'
+                          }`}>
+                            <div className={`w-2 h-2 rounded-full ${
+                              notification.type === 'warning' ? 'bg-yellow-500' :
+                              notification.type === 'error' ? 'bg-red-500' :
+                              notification.type === 'success' ? 'bg-green-500' :
+                              'bg-cyan-500'
+                            }`}></div>
+                          </div>
                           
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between">
-                              <p className={`text-sm font-medium text-gray-900 truncate ${
-                                notification.unread ? 'font-semibold' : ''
+                            <div className="flex items-start justify-between gap-2">
+                              <p className={`text-sm text-gray-900 ${
+                                notification.unread ? 'font-semibold' : 'font-medium'
                               }`}>
                                 {notification.title}
                               </p>
                               {notification.unread && (
-                                <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
+                                <div className="w-2 h-2 bg-cyan-600 rounded-full flex-shrink-0 mt-1.5"></div>
                               )}
                             </div>
                             <p className="text-xs text-gray-600 mt-1 line-clamp-2">
                               {notification.message}
                             </p>
-                            <p className="text-xs text-gray-400 mt-1">
+                            <p className="text-xs text-gray-400 mt-1.5">
                               {notification.time}
                             </p>
                           </div>
@@ -315,7 +322,7 @@ export function Layout() {
                       onClick={() => {
                         setShowNotifications(false);
                       }}
-                      className="w-full text-center text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                      className="w-full text-center text-sm text-cyan-600 hover:text-cyan-700 font-medium transition-colors"
                     >
                       View all notifications
                     </button>
@@ -328,20 +335,28 @@ export function Layout() {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                className="flex items-center rounded-lg p-2 transition-colors"
+                className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 transition-colors"
               >
-                <div className="w-9 h-9 bg-gradient-to-br from-[#0E4665] via-[#18587a] to-[#143346] rounded-full flex items-center justify-center">
-                  <User className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-gradient-to-br from-cyan-600 via-cyan-700 to-cyan-800 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
                 </div>
+                <ChevronDown className="w-4 h-4 text-gray-600" />
               </button>
   
               {/* Dropdown Menu */}
               {showProfileDropdown && (
-                <div className="absolute right-0 mt-2 w-50 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
                   {/* User Info */}
-                  <div className="px-4 py-3 border-b border-gray-200">
-                    <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
-                    <p className="text-xs text-gray-500 mt-1">{user?.email}</p>
+                  <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-br from-cyan-50 to-cyan-100/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 via-cyan-700 to-cyan-800 rounded-full flex items-center justify-center flex-shrink-0">
+                        <User className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-900 truncate">{user?.name}</p>
+                        <p className="text-xs text-gray-600 truncate">{user?.email}</p>
+                      </div>
+                    </div>
                   </div>
   
                   {/* Menu Items */}
@@ -350,10 +365,10 @@ export function Layout() {
                       onClick={() => {
                         setShowProfileDropdown(false);
                       }}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-[#0E4665] hover:text-white transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                     >
-                      <User className="w-4 h-4" />
-                      <span>Profile</span>
+                      <User className="w-4 h-4 text-gray-500" />
+                      <span>Profile Settings</span>
                     </button>
   
                     <button
@@ -361,7 +376,7 @@ export function Layout() {
                         setShowProfileDropdown(false);
                         logout();
                       }}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-[#0E4665] hover:text-white transition-colors"
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-gray-100"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>

@@ -269,11 +269,11 @@ export function LicenseDetail() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm" className="gap-2">
+                          <Button size="sm" className="px-4 py-2 border border-gray-300 rounded-lg gap-2 flex items-center text-xs text-gray-700 hover:bg-gray-200">
                             <Eye className="w-4 h-4" />
                             Preview
                           </Button>
-                          <Button variant="outline" size="sm" className="gap-2">
+                          <Button  size="sm" className="px-4 py-2 rounded-lg gap-2 flex items-center text-xs text-gray-100 bg-cyan-600 hover:bg-cyan-700">
                             <Download className="w-4 h-4" />
                             Download
                           </Button>

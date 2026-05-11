@@ -406,7 +406,6 @@ export function Greenfield() {
                     <div className="pt-4 border-t border-gray-200">
                       <p className="text-sm font-medium text-gray-900 mb-2">Suggested Action:</p>
                       <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors">
-                        <ArrowRight className="w-4 h-4" />
                         <span className="text-sm">Start licensing process</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
